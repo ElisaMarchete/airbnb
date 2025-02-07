@@ -10,26 +10,66 @@ test("Search Properties by Location", async ({ page }) => {
     page.getByRole("link", { name: "Airbnb homepage" })
   ).toBeVisible();
 
-  //
+  // Click the search destinations
+  await page.getByTestId("structured-search-input-field-query").click();
 
-  //   // Click the search button
-  //   await page.getByRole("button", { name: "Search" }).click();
+  // find text in the dropdown Suggested destinations
+  await page.getByText("Suggested destinations").waitFor();
 
-  //   // Check if the page heading contain the text "places in Kitchener"
-  //   await expect(page.getByTestId("stays-page-heading")).toHaveText(
-  //     /places in Kitchener/
-  //   );
+  // Select the second option from the dropdown dynamically
+  const firstOption = page.locator('[role="link"]').nth(1);
+  await firstOption.click();
 
-  //   // Close the cookie banner by clicking the "Accept all" button
-  //   await page.getByRole("button", { name: "Accept all" }).click();
+  // Get the full text of the first option
+  const fullText = await firstOption.textContent();
 
-  //   // Wait for the page to load
-  //   await page.waitForLoadState("networkidle");
+  // Extract only the city name (first word before a comma)
+  const cityName = fullText.split(",")[0].trim();
 
-  //   // Check if there are at least one propertt displayed
-  //   const count = await page.locator('[data-testid="card-container"]').count();
-  //   expect(count).toBeGreaterThan(0);
+  console.log(`Selected city: ${cityName}`);
 
-  //   // Check if the map is visible
-  //   await expect(page.locator('[data-testid="map/GoogleMap"]')).toBeVisible();
+  // Click the search button
+  await page.getByRole("button", { name: "Search" }).click();
+
+  // Wait for the page to load
+  await page.waitForLoadState("networkidle");
+
+  //Check if there is at least one result displayed
+  const results = await page.locator('[data-testid="search-results"]').count();
+  console.log(`Number of results: ${results}`);
+
+  // Check if the page contains the text "places in Kitchener"
+  await expect(page.getByTestId("stays-page-heading")).toHaveText(
+    new RegExp(`places in ${cityName}`)
+  );
+
+  // Close the cookie banner by clicking the "Accept all" button
+  await page.getByRole("button", { name: "Accept all" }).click();
+
+  // Wait for the page to load
+  await page.waitForLoadState("networkidle");
+
+  // Check if there is at least one property displayed
+  const count = await page.locator('[data-testid="card-container"]').count();
+  expect(count).toBeGreaterThan(0);
+
+  // Check if the map is visible
+  await expect(page.locator('[data-testid="map/GoogleMap"]')).toBeVisible();
+
+  // Assertion for the search result: location, date and guests
+  let searchLocation = `Location${cityName}`;
+  let searchAnytime = "Check-in / CheckoutAny week";
+  let searchGuests = "Guests1 guest";
+
+  await expect(page.getByTestId("little-search-location")).toHaveText(
+    searchLocation
+  );
+
+  await expect(page.getByTestId("little-search-anytime")).toHaveText(
+    searchAnytime
+  );
+
+  await expect(page.getByTestId("little-search-guests")).toHaveText(
+    searchGuests
+  );
 });

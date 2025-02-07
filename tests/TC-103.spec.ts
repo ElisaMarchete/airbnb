@@ -23,6 +23,13 @@ test("Search Properties by Location", async ({ page }) => {
   // Click the search button
   await page.getByRole("button", { name: "Search" }).click();
 
+  // Wait for the page to load
+  await page.waitForLoadState("networkidle");
+
+  //Check if there is at least one result displayed
+  const results = await page.locator('[data-testid="search-results"]').count();
+  console.log(`Number of results: ${results}`);
+
   // Check if the page contains the text "places in Kitchener"
   await expect(page.getByTestId("stays-page-heading")).toHaveText(
     new RegExp(`places in ${city}`)
@@ -41,6 +48,7 @@ test("Search Properties by Location", async ({ page }) => {
   // Check if the map is visible
   await expect(page.locator('[data-testid="map/GoogleMap"]')).toBeVisible();
 
+  // Assertion for the search result: location, date and guests
   await expect(page.getByTestId("little-search-location")).toHaveText(
     searchLocation
   );
