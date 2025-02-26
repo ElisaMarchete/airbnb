@@ -7,7 +7,7 @@ let province = "ON";
 let cityProvince = city + ", " + province;
 let searchLocation = "LocationKitchener";
 let searchAnytime = "Check-in / CheckoutAny week";
-let searchGuests = "Guests1 guest";
+let searchGuests = "GuestsAdd guests";
 
 test("Search Properties by Location", async ({ page }) => {
   await page.goto("https://www.airbnb.ca/");

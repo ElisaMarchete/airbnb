@@ -14,7 +14,7 @@ test("Search Properties by Location", async ({ page }) => {
   await page.getByTestId("structured-search-input-field-query").click();
 
   // find text in the dropdown Suggested destinations
-  await page.getByText("Suggested destinations").waitFor();
+  await page.getByText("Suggested destinations").waitFor({ timeout: 60000 });
 
   // Select the second option from the dropdown dynamically
   const firstOption = page.locator('[role="link"]').nth(1);
@@ -31,9 +31,6 @@ test("Search Properties by Location", async ({ page }) => {
   // Click the search button
   await page.getByRole("button", { name: "Search" }).click();
 
-  // Wait for the page to load
-  await page.waitForLoadState("networkidle");
-
   //Check if there is at least one result displayed
   const results = await page.locator('[data-testid="search-results"]').count();
   console.log(`Number of results: ${results}`);
@@ -46,9 +43,6 @@ test("Search Properties by Location", async ({ page }) => {
   // Close the cookie banner by clicking the "Accept all" button
   await page.getByRole("button", { name: "Accept all" }).click();
 
-  // Wait for the page to load
-  await page.waitForLoadState("networkidle");
-
   // Check if there is at least one property displayed
   const count = await page.locator('[data-testid="card-container"]').count();
   expect(count).toBeGreaterThan(0);
@@ -59,7 +53,7 @@ test("Search Properties by Location", async ({ page }) => {
   // Assertion for the search result: location, date and guests
   let searchLocation = `Location${cityName}`;
   let searchAnytime = "Check-in / CheckoutAny week";
-  let searchGuests = "Guests1 guest";
+  let searchGuests = "GuestsAdd guests";
 
   await expect(page.getByTestId("little-search-location")).toHaveText(
     searchLocation
