@@ -2,7 +2,9 @@
 
 import { test, expect } from "@playwright/test";
 
-test("Search Properties by Location", async ({ page }) => {
+test("Search Properties by Location Selecting Suggested destinations", async ({
+  page,
+}) => {
   await page.goto("https://www.airbnb.ca/");
 
   // Check if there is the text "airbnb" in the page
