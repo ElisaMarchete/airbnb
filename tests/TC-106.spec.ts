@@ -7,6 +7,22 @@ test("Search Properties by Location Selecting Suggested destinations", async ({
 }) => {
   await page.goto("https://www.airbnb.ca/");
 
+  // Wait for the page to load completely
+  await page.waitForLoadState("load");
+
+  // Wait for the cookie banner to appear, but do not fail if it doesn't show up
+  const cookieBannerSelector = '[data-testid="main-cookies-banner-container"]';
+  const acceptButton = page.getByRole("button", { name: "Accept all" });
+
+  try {
+    await page.waitForSelector(cookieBannerSelector, { timeout: 5000 }); // Wait up to 5s
+    if (await acceptButton.isVisible()) {
+      await acceptButton.click();
+    }
+  } catch (error) {
+    console.log("Cookie banner did not appear, continuing test...");
+  }
+
   // Check if there is the text "airbnb" in the page
   await expect(
     page.getByRole("link", { name: "Airbnb homepage" })
@@ -33,6 +49,18 @@ test("Search Properties by Location Selecting Suggested destinations", async ({
   // Click the search button
   await page.getByRole("button", { name: "Search" }).click();
 
+  // Wait for the page to load completely
+  await page.waitForLoadState("load");
+
+  try {
+    await page.waitForSelector(cookieBannerSelector, { timeout: 5000 }); // Wait up to 5s
+    if (await acceptButton.isVisible()) {
+      await acceptButton.click();
+    }
+  } catch (error) {
+    console.log("Cookie banner did not appear, continuing test...");
+  }
+
   //Check if there is at least one result displayed
   const results = await page.locator('[data-testid="search-results"]').count();
   console.log(`Number of results: ${results}`);
@@ -41,9 +69,6 @@ test("Search Properties by Location Selecting Suggested destinations", async ({
   await expect(page.getByTestId("stays-page-heading")).toHaveText(
     new RegExp(`places in ${cityName}`)
   );
-
-  // Close the cookie banner by clicking the "Accept all" button
-  await page.getByRole("button", { name: "Accept all" }).click();
 
   // Check if there is at least one property displayed
   const count = await page.locator('[data-testid="card-container"]').count();

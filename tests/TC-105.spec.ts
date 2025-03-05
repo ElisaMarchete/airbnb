@@ -1,24 +1,8 @@
-// **Feature: Search Properties by Date**
+// **Feature: Search Properties by Guests**
 
 import { test, expect } from "@playwright/test";
 
-const formatDate = (daysFromToday: number): string => {
-  const date = new Date();
-  date.setDate(date.getDate() + daysFromToday);
-
-  // Get the exact date in the required format
-  const weekday = date.toLocaleDateString("en-US", { weekday: "long" }); // Get the weekday name
-  const month = date.toLocaleDateString("en-US", { month: "long" }); // Get the month name
-  const year = date.getFullYear(); // Get the full year
-
-  return `${date.getDate()}, ${weekday}, ${month} ${year}`; // output: "23, Sunday, March 2025"
-};
-
-// Use formatDate to get the desired check-in and check-out dates
-const checkInDate = formatDate(15); // Add 15 days
-const checkOutDate = formatDate(20); // Add 20 days
-
-test("Search Properties by Date", async ({ page }) => {
+test("Search Properties by Guests", async ({ page }) => {
   await page.goto("https://www.airbnb.ca/");
 
   // Wait for the page to load completely
@@ -37,20 +21,50 @@ test("Search Properties by Date", async ({ page }) => {
     console.log("Cookie banner did not appear, continuing test...");
   }
 
-  // Check if there is the text "airbnb" in the page
+  // Click on the Who (Add Guests) field
+  await page.click(
+    '[data-testid="structured-search-input-field-guests-button"]'
+  );
+
+  // Check Adults Selection is visible
+
   await expect(
-    page.getByRole("link", { name: "Airbnb homepage" })
+    page.getByTestId("search-block-filter-stepper-row-adults")
   ).toBeVisible();
 
-  // Select the check-in date
-  await page.getByTestId("structured-search-input-field-split-dates-0").click();
-  await page.getByRole("button", { name: `${checkInDate}` }).click();
+  await expect(
+    page.getByTestId("search-block-filter-stepper-row-children")
+  ).toBeVisible();
 
-  // Select the check-out date
-  await page.getByRole("button", { name: `${checkOutDate}` }).click();
+  await expect(
+    page.getByTestId("search-block-filter-stepper-row-infants")
+  ).toBeVisible();
+
+  await expect(
+    page.getByTestId("search-block-filter-stepper-row-pets")
+  ).toBeVisible();
+
+  await expect(
+    page.getByTestId("search-block-filter-stepper-row-pets")
+  ).toBeVisible();
+
+  await expect(
+    page.getByRole("button", { name: "Bringing a service animal?" })
+  ).toBeVisible();
+
+  // Select 10 adults
+  for (let i = 0; i < 10; i++) {
+    await page.getByTestId("stepper-adults-increase-button").click();
+  }
+
+  // Click the search button to add 10 adults
+  let numberOfAdults = 10;
+  for (let i = 10; i < numberOfAdults; i++) {
+    await page.getByTestId("stepper-adults-increase-button").click();
+  }
 
   // Click the search button
-  await page.getByRole("button", { name: "Search" }).click();
+  await page.getByTestId("structured-search-input-search-button").click();
 
   // Wait for the page to load completely
   await page.waitForLoadState("load");
@@ -83,26 +97,17 @@ test("Search Properties by Date", async ({ page }) => {
   ).toHaveText("");
 
   // Check the Check-in date field result
-  // Extract day and month
-  const splitCheckin = checkInDate.split(", "); // ["23", "Sunday", "March 2025"]
-  const day = splitCheckin[0]; // "23"
-  const month = splitCheckin[2].split(" ")[0].slice(0, 3); // "March" → "Mar"
-  const resultCheckInDate = `${month} ${day}`;
   await expect(
     page.getByTestId("structured-search-input-field-split-dates-0")
-  ).toHaveText(`Check in${resultCheckInDate}`);
+  ).toHaveText("Check inAdd dates");
 
   // Check the Check-out date field result
-  // Extract day and month
-  const splitCheckout = checkOutDate.split(", "); // ["23", "Sunday", "March 2025"]
-  const day2 = splitCheckout[0]; // "23"
-  const month2 = splitCheckout[2].split(" ")[0].slice(0, 3); // "March" → "Mar"
-  const resultCheckOutDate = `${month2} ${day2}`;
   await expect(
     page.getByTestId("structured-search-input-field-split-dates-1")
-  ).toHaveText(`Check out${resultCheckOutDate}`);
+  ).toHaveText("Check outAdd dates");
 
-  await expect(page.getByTestId("little-search-guests")).toHaveText(
-    "GuestsAdd guests"
-  );
+  // Check the Guests field result
+  await expect(
+    page.getByTestId("structured-search-input-field-guests-button")
+  ).toHaveText("Who10 guests");
 });
