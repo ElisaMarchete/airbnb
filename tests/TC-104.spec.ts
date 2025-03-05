@@ -82,25 +82,31 @@ test("Search Properties by Date", async ({ page }) => {
     page.getByTestId("structured-search-input-field-query")
   ).toHaveText("");
 
-  // Check the Check-in date field result
+  // Check the date field result
   // Extract day and month
   const splitCheckin = checkInDate.split(", "); // ["23", "Sunday", "March 2025"]
   const day = splitCheckin[0]; // "23"
   const month = splitCheckin[2].split(" ")[0].slice(0, 3); // "March" → "Mar"
   const resultCheckInDate = `${month} ${day}`;
-  await expect(
-    page.getByTestId("structured-search-input-field-split-dates-0")
-  ).toHaveText(`Check in${resultCheckInDate}`);
 
-  // Check the Check-out date field result
   // Extract day and month
   const splitCheckout = checkOutDate.split(", "); // ["23", "Sunday", "March 2025"]
   const day2 = splitCheckout[0]; // "23"
   const month2 = splitCheckout[2].split(" ")[0].slice(0, 3); // "March" → "Mar"
   const resultCheckOutDate = `${month2} ${day2}`;
-  await expect(
-    page.getByTestId("structured-search-input-field-split-dates-1")
-  ).toHaveText(`Check out${resultCheckOutDate}`);
+
+  // If same month, only display the month once + checkin day - checkout day  (Mar 23 - 28)
+  if (month === month2) {
+    await expect(page.getByTestId("little-search-anytime")).toHaveText(
+      `Check-in / Checkout${resultCheckInDate}–${day2}`
+    );
+  }
+  // If different month, display both months + checkin day - checkout day  (Mar 23 - Apr 28)
+  else {
+    await expect(page.getByTestId("little-search-anytime")).toHaveText(
+      `Check-in / Checkout${resultCheckInDate}–${resultCheckOutDate}`
+    );
+  }
 
   await expect(page.getByTestId("little-search-guests")).toHaveText(
     "GuestsAdd guests"

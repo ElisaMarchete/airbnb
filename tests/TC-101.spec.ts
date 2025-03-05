@@ -1,10 +1,15 @@
-// **Feature: Search Properties by Location and Date**
+// **Feature: Search Properties by Location, Date, Number of Guests, including Pet**
 
 import { test, expect } from "@playwright/test";
 
 let city = "São Paulo";
 let country = "Brazil";
 let cityCountry = city + ", " + country;
+let numberOfAdults = 4;
+let numberOfChildren = 5;
+let numberOfInfants = 1;
+let numberOfPets = 1;
+let totalGuests = numberOfAdults + numberOfChildren;
 
 const formatDate = (daysFromToday: number): string => {
   const date = new Date();
@@ -22,7 +27,9 @@ const formatDate = (daysFromToday: number): string => {
 const checkInDate = formatDate(15); // Add 15 days
 const checkOutDate = formatDate(20); // Add 20 days
 
-test("Search Properties by Location and Date", async ({ page }) => {
+test("Search Properties by Location, Date, Number of Guests, including Pet", async ({
+  page,
+}) => {
   await page.goto("https://www.airbnb.ca/");
 
   // Wait for the page to load completely
@@ -50,6 +57,55 @@ test("Search Properties by Location and Date", async ({ page }) => {
 
   // Select the check-out date
   await page.getByRole("button", { name: `${checkOutDate}` }).click();
+
+  // Click on the Who (Add Guests) field
+  await page.click(
+    '[data-testid="structured-search-input-field-guests-button"]'
+  );
+
+  await expect(
+    page.getByTestId("search-block-filter-stepper-row-adults")
+  ).toBeVisible();
+
+  await expect(
+    page.getByTestId("search-block-filter-stepper-row-children")
+  ).toBeVisible();
+
+  await expect(
+    page.getByTestId("search-block-filter-stepper-row-infants")
+  ).toBeVisible();
+
+  await expect(
+    page.getByTestId("search-block-filter-stepper-row-pets")
+  ).toBeVisible();
+
+  await expect(
+    page.getByTestId("search-block-filter-stepper-row-pets")
+  ).toBeVisible();
+
+  await expect(
+    page.getByRole("button", { name: "Bringing a service animal?" })
+  ).toBeVisible();
+
+  // Increase adults to 4
+  for (let i = 0; i < numberOfAdults; i++) {
+    await page.getByTestId("stepper-adults-increase-button").click();
+  }
+
+  // Increase children to 5
+  for (let i = 0; i < numberOfChildren; i++) {
+    await page.getByTestId("stepper-children-increase-button").click();
+  }
+
+  // Increase infants to 1
+  for (let i = 0; i < numberOfInfants; i++) {
+    await page.getByTestId("stepper-infants-increase-button").click();
+  }
+
+  // Increase pets to 1
+  for (let i = 0; i < numberOfPets; i++) {
+    await page.getByTestId("stepper-pets-increase-button").click();
+  }
 
   // Click the search button
   await page.getByRole("button", { name: "Search" }).click();
@@ -105,7 +161,6 @@ test("Search Properties by Location and Date", async ({ page }) => {
       `Check-in / Checkout${resultCheckInDate}–${day2}`
     );
   }
-
   // If different month, display both months + checkin day - checkout day  (Mar 23 - Apr 28)
   else {
     await expect(page.getByTestId("little-search-anytime")).toHaveText(
@@ -115,6 +170,6 @@ test("Search Properties by Location and Date", async ({ page }) => {
 
   // Check the Guests field result
   await expect(page.getByTestId("little-search-guests")).toHaveText(
-    "GuestsAdd guests"
+    `Guests${totalGuests} guests`
   );
 });

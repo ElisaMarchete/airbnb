@@ -26,8 +26,6 @@ test("Search Properties by Guests", async ({ page }) => {
     '[data-testid="structured-search-input-field-guests-button"]'
   );
 
-  // Check Adults Selection is visible
-
   await expect(
     page.getByTestId("search-block-filter-stepper-row-adults")
   ).toBeVisible();
@@ -52,14 +50,9 @@ test("Search Properties by Guests", async ({ page }) => {
     page.getByRole("button", { name: "Bringing a service animal?" })
   ).toBeVisible();
 
-  // Select 10 adults
-  for (let i = 0; i < 10; i++) {
-    await page.getByTestId("stepper-adults-increase-button").click();
-  }
-
   // Click the search button to add 10 adults
   let numberOfAdults = 10;
-  for (let i = 10; i < numberOfAdults; i++) {
+  for (let i = 0; i < numberOfAdults; i++) {
     await page.getByTestId("stepper-adults-increase-button").click();
   }
 
