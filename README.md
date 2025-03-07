@@ -11,20 +11,25 @@ This repository showcases my **QA software testing skills** through **manual and
 ### 1️⃣ Manual Testing on BrowserStack
 
 🔹 **Test Run** – [Click to View Test Run](https://test-management.browserstack.com/projects/1510499/test-runs/TR-17?public_token=5c1d60eb68c248268e61dbcced8b8cb713f66aba18371e0f47df3778dfb8ebe4d4729925fe6b92ef3b59486f8c397d6890450d0ce12aae5f2587dc754a879f2f&public_token_id=1162)
+
 ![Test Run](./img/TestRunReport.PNG)
 
 🔹 **Test Run Results** – [Click to View test results](https://test-management.browserstack.com/projects/1510499/test-runs/TR-17?public_token=5c1d60eb68c248268e61dbcced8b8cb713f66aba18371e0f47df3778dfb8ebe4d4729925fe6b92ef3b59486f8c397d6890450d0ce12aae5f2587dc754a879f2f&public_token_id=1162)
+
 ![Test Run Results](./img/TestRunResult.PNG)
+<br>
 
 ### 2️⃣ Bug Reports
 
 📌 **Bug logged for failed test (TC-110)** – [Click to View GitHub Issue](https://github.com/ElisaMarchete/airbnb/issues/1)
+
 ![Bug Report](./img/Bug.PNG)
 
 ### 3️⃣ Automated Testing with Playwright
 
 💻 Playwright test scripts for automated functional and visual validation to ensure the application's search functionality works correctly and looks as expected.
-![Bug Report](./img/Playwright.PNG)
+
+![Playwright](./img/Playwright.PNG)
 
 ## 🚀 Running Playwright Tests
 
