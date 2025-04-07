@@ -17,7 +17,6 @@ This repository showcases my **QA software testing skills** through **manual and
 🔹 **Test Run Results** – [Click to View test results](https://test-management.browserstack.com/projects/1510499/test-runs/TR-17?public_token=5c1d60eb68c248268e61dbcced8b8cb713f66aba18371e0f47df3778dfb8ebe4d4729925fe6b92ef3b59486f8c397d6890450d0ce12aae5f2587dc754a879f2f&public_token_id=1162)
 
 ![Test Run Results](./img/TestRunResult.PNG)
-<br>
 
 ### 2️⃣ Bug Reports
 
