@@ -1,15 +1,9 @@
 // **Feature: Search Properties by Location Selecting Suggested destinations**
 
 import { test, expect } from "@playwright/test";
+import { page } from "../setup.spec";
 
-test("Search Properties by Location Selecting Suggested destinations", async ({
-  page,
-}) => {
-  await page.goto("https://www.airbnb.ca/");
-
-  // Wait for the page to load completely
-  await page.waitForLoadState("load");
-
+test("Search Properties by Location Selecting Suggested destinations", async () => {
   // Wait for the cookie banner to appear, but do not fail if it doesn't show up
   const cookieBannerSelector = '[data-testid="main-cookies-banner-container"]';
   const acceptButton = page.getByRole("button", { name: "Accept all" });

@@ -1,4 +1,4 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices } from "@playwright/test";
 
 /**
  * Read environment variables from file.
@@ -12,7 +12,7 @@ import { defineConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: './tests',
+  testDir: "./tests",
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -22,31 +22,47 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter: [["list"], ["html"]],
+
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
+    headless: false, //Run tests in headed mode so you can SEE the browser
+    video: "on", //Record a video for each test
+    screenshot: "only-on-failure", // (Optional) Take a screenshot if a test fails
+    trace: "retain-on-failure",
+    contextOptions: {
+      storageState: undefined, // no shared cookies or sessions
+    },
+    viewport: { width: 1280, height: 720 },
+    actionTimeout: 40000, // Increase to 20 seconds for actions (click, fill, etc.)
+    navigationTimeout: 30000, // Increase to 30 seconds for page loads
+
     /* Base URL to use in actions like `await page.goto('/')`. */
     // baseURL: 'http://127.0.0.1:3000',
-
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
   },
 
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: "chromium",
+      use: {
+        ...devices["Desktop Chrome"],
+      },
+      retries: 1, // <= Retry once in Chromium
     },
-
     {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      name: "firefox",
+      use: {
+        ...devices["Desktop Firefox"],
+      },
+      retries: 1, // <= Retry once in Firefox
     },
-
     {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      name: "webkit",
+      use: {
+        ...devices["Desktop Safari"],
+      },
+      retries: 1, // <= Retry once in WebKit
     },
 
     /* Test against mobile viewports. */

@@ -1,6 +1,7 @@
 // **Feature: Search Properties by Date**
 
 import { test, expect } from "@playwright/test";
+import { page } from "../setup.spec";
 
 const formatDate = (daysFromToday: number): string => {
   const date = new Date();
@@ -18,12 +19,7 @@ const formatDate = (daysFromToday: number): string => {
 const checkInDate = formatDate(15); // Add 15 days
 const checkOutDate = formatDate(20); // Add 20 days
 
-test("Search Properties by Date", async ({ page }) => {
-  await page.goto("https://www.airbnb.ca/");
-
-  // Wait for the page to load completely
-  await page.waitForLoadState("load");
-
+test("Search Properties by Date", async () => {
   // Wait for the cookie banner to appear, but do not fail if it doesn't show up
   const cookieBannerSelector = '[data-testid="main-cookies-banner-container"]';
   const acceptButton = page.getByRole("button", { name: "Accept all" });
@@ -44,6 +40,16 @@ test("Search Properties by Date", async ({ page }) => {
 
   // Select the check-in date
   await page.getByTestId("structured-search-input-field-split-dates-0").click();
+
+  // wait for the calendar to be visible
+  await page.waitForSelector(
+    '[data-testid="structured-search-input-field-split-dates-0"]',
+    {
+      timeout: 10000,
+    }
+  );
+
+  // Click on the check-in date
   await page.getByRole("button", { name: `${checkInDate}` }).click();
 
   // Select the check-out date

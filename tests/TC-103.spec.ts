@@ -1,6 +1,7 @@
 // **Feature: Search Properties by Location**
 
 import { test, expect } from "@playwright/test";
+import { page } from "../setup.spec";
 
 let city = "Kitchener";
 let province = "ON";
@@ -9,12 +10,7 @@ let searchLocation = "LocationKitchener";
 let searchAnytime = "Check-in / CheckoutAny week";
 let searchGuests = "GuestsAdd guests";
 
-test("Search Properties by Location", async ({ page }) => {
-  await page.goto("https://www.airbnb.ca/");
-
-  // Wait for the page to load completely
-  await page.waitForLoadState("load");
-
+test("Search Properties by Location", async () => {
   // Wait for the cookie banner to appear, but do not fail if it doesn't show up
   const cookieBannerSelector = '[data-testid="main-cookies-banner-container"]';
   const acceptButton = page.getByRole("button", { name: "Accept all" });

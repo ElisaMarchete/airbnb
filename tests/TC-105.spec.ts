@@ -1,13 +1,9 @@
 // **Feature: Search Properties by Guests**
 
 import { test, expect } from "@playwright/test";
+import { page } from "../setup.spec";
 
-test("Search Properties by Guests", async ({ page }) => {
-  await page.goto("https://www.airbnb.ca/");
-
-  // Wait for the page to load completely
-  await page.waitForLoadState("load");
-
+test("Search Properties by Guests", async () => {
   // Wait for the cookie banner to appear, but do not fail if it doesn't show up
   const cookieBannerSelector = '[data-testid="main-cookies-banner-container"]';
   const acceptButton = page.getByRole("button", { name: "Accept all" });
@@ -51,13 +47,22 @@ test("Search Properties by Guests", async ({ page }) => {
   ).toBeVisible();
 
   // Click the search button to add 10 adults
+
   let numberOfAdults = 10;
+
   for (let i = 0; i < numberOfAdults; i++) {
     await page.getByTestId("stepper-adults-increase-button").click();
   }
 
   // Click the search button
-  await page.getByTestId("structured-search-input-search-button").click();
+  const searchButton = page.getByTestId(
+    "structured-search-input-search-button"
+  );
+  await expect(searchButton).toBeVisible();
+  await expect(searchButton).toBeEnabled();
+  await searchButton.click();
+
+  // await page.getByTestId("structured-search-input-search-button").click();
 
   // Wait for the page to load completely
   await page.waitForLoadState("load");
