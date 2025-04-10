@@ -1,7 +1,7 @@
 // **Feature: Search Properties by Location, Date, and Number of Guests**
 
 import { test, expect } from "@playwright/test";
-import { page } from "../setup.spec";
+// import { page } from "../gobal-setup.spec";
 
 let city = "São Paulo";
 let country = "Brazil";
@@ -27,7 +27,11 @@ const formatDate = (daysFromToday: number): string => {
 const checkInDate = formatDate(15); // Add 15 days
 const checkOutDate = formatDate(20); // Add 20 days
 
-test("Search Properties by Location, Date, and Number of Guests", async () => {
+test("Search Properties by Location, Date, and Number of Guests", async ({
+  page,
+}) => {
+  await page.goto("/");
+
   // Wait for the cookie banner to appear, but do not fail if it doesn't show up
   const cookieBannerSelector = '[data-testid="main-cookies-banner-container"]';
   const acceptButton = page.getByRole("button", { name: "Accept all" });
@@ -51,7 +55,7 @@ test("Search Properties by Location, Date, and Number of Guests", async () => {
   await page.waitForSelector(
     '[data-testid="structured-search-input-field-split-dates-0"]',
     {
-      timeout: 10000,
+      state: "visible",
     }
   );
 

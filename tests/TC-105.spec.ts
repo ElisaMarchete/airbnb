@@ -1,7 +1,7 @@
 // **Feature: Search Properties by Guests**
 
 import { test, expect } from "@playwright/test";
-import { page } from "../setup.spec";
+import { page } from "../gobal-setup.spec";
 
 test("Search Properties by Guests", async () => {
   // Wait for the cookie banner to appear, but do not fail if it doesn't show up

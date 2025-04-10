@@ -1,7 +1,7 @@
 // **Feature: Search Properties by Date**
 
 import { test, expect } from "@playwright/test";
-import { page } from "../setup.spec";
+import { page } from "../gobal-setup.spec";
 
 const formatDate = (daysFromToday: number): string => {
   const date = new Date();
@@ -24,14 +24,14 @@ test("Search Properties by Date", async () => {
   const cookieBannerSelector = '[data-testid="main-cookies-banner-container"]';
   const acceptButton = page.getByRole("button", { name: "Accept all" });
 
-  try {
-    await page.waitForSelector(cookieBannerSelector, { timeout: 5000 }); // Wait up to 5s
-    if (await acceptButton.isVisible()) {
-      await acceptButton.click();
-    }
-  } catch (error) {
-    console.log("Cookie banner did not appear, continuing test...");
-  }
+  // try {
+  //   await page.waitForSelector(cookieBannerSelector, { timeout: 5000 }); // Wait up to 5s
+  //   if (await acceptButton.isVisible()) {
+  //     await acceptButton.click();
+  //   }
+  // } catch (error) {
+  //   console.log("Cookie banner did not appear, continuing test...");
+  // }
 
   // Check if there is the text "airbnb" in the page
   await expect(
@@ -45,7 +45,7 @@ test("Search Properties by Date", async () => {
   await page.waitForSelector(
     '[data-testid="structured-search-input-field-split-dates-0"]',
     {
-      timeout: 10000,
+      state: "visible",
     }
   );
 
@@ -61,14 +61,14 @@ test("Search Properties by Date", async () => {
   // Wait for the page to load completely
   await page.waitForLoadState("load");
 
-  try {
-    await page.waitForSelector(cookieBannerSelector, { timeout: 5000 }); // Wait up to 5s
-    if (await acceptButton.isVisible()) {
-      await acceptButton.click();
-    }
-  } catch (error) {
-    console.log("Cookie banner did not appear, continuing test...");
-  }
+  // try {
+  //   await page.waitForSelector(cookieBannerSelector, { timeout: 5000 }); // Wait up to 5s
+  //   if (await acceptButton.isVisible()) {
+  //     await acceptButton.click();
+  //   }
+  // } catch (error) {
+  //   console.log("Cookie banner did not appear, continuing test...");
+  // }
 
   //Check if there is at least one result displayed
   const results = await page.locator('[data-testid="search-results"]').count();

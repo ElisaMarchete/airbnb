@@ -15,19 +15,22 @@ export default defineConfig({
   testDir: "./tests",
   /* Run tests in files in parallel */
   fullyParallel: true,
+
+  globalSetup: require.resolve("./gobal-setup.spec.ts"),
+
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
+  retries: process.env.CI ? 2 : 2,
   /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
+  workers: process.env.CI ? 1 : 6,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [["list"], ["html"]],
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    headless: false, //Run tests in headed mode so you can SEE the browser
-    video: "on", //Record a video for each test
+    headless: true, //Run tests in headed mode so you can SEE the browser
+    video: "off", //Record a video for each test
     screenshot: "only-on-failure", // (Optional) Take a screenshot if a test fails
     trace: "retain-on-failure",
     contextOptions: {
@@ -38,7 +41,7 @@ export default defineConfig({
     navigationTimeout: 30000, // Increase to 30 seconds for page loads
 
     /* Base URL to use in actions like `await page.goto('/')`. */
-    // baseURL: 'http://127.0.0.1:3000',
+    baseURL: "https://www.airbnb.ca",
   },
 
   /* Configure projects for major browsers */

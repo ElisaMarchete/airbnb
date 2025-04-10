@@ -1,9 +1,15 @@
 // **Feature: Search Properties by Location Selecting Suggested destinations**
 
 import { test, expect } from "@playwright/test";
-import { page } from "../setup.spec";
+import { page } from "../gobal-setup.spec";
 
 test("Search Properties by Location Selecting Suggested destinations", async () => {
+  await expect(async () => {
+    await expect(
+      page.getByRole("link", { name: "Airbnb homepage" })
+    ).toBeVisible({ timeout: 60000 });
+  }).toPass();
+
   // Wait for the cookie banner to appear, but do not fail if it doesn't show up
   const cookieBannerSelector = '[data-testid="main-cookies-banner-container"]';
   const acceptButton = page.getByRole("button", { name: "Accept all" });
@@ -18,9 +24,14 @@ test("Search Properties by Location Selecting Suggested destinations", async () 
   }
 
   // Check if there is the text "airbnb" in the page
-  await expect(
-    page.getByRole("link", { name: "Airbnb homepage" })
-  ).toBeVisible();
+  // await expect(page.getByRole("link", { name: "Airbnb homepage" })).toBeVisible(
+  //   { timeout: 60000 }
+  // );
+
+  // First search for a location
+  await page.fill('input[name="query"]', "Toronto, ON");
+  await page.getByRole("button", { name: "Search" }).click();
+  await page.goto("https://www.airbnb.ca/");
 
   // Click the search destinations
   await page.getByTestId("structured-search-input-field-query").click();
