@@ -1,7 +1,6 @@
 // **Feature: Search Properties by Location, Date, and Number of Guests**
 
 import { test, expect } from "@playwright/test";
-// import { page } from "../gobal-setup.spec";
 
 let city = "São Paulo";
 let country = "Brazil";
@@ -37,7 +36,7 @@ test("Search Properties by Location, Date, and Number of Guests", async ({
   const acceptButton = page.getByRole("button", { name: "Accept all" });
 
   try {
-    await page.waitForSelector(cookieBannerSelector, { timeout: 5000 }); // Wait up to 5s
+    await page.waitForSelector(cookieBannerSelector, { timeout: 7000 }); // Wait up to 7s
     if (await acceptButton.isVisible()) {
       await acceptButton.click();
     }
@@ -113,10 +112,11 @@ test("Search Properties by Location, Date, and Number of Guests", async ({
   await page.getByRole("button", { name: "Search" }).click();
 
   // Wait for the page to load completely
-  await page.waitForLoadState("load");
+  // await page.waitForLoadState("load");
+  await page.waitForLoadState("networkidle");
 
   try {
-    await page.waitForSelector(cookieBannerSelector, { timeout: 5000 }); // Wait up to 5s
+    await page.waitForSelector(cookieBannerSelector, { timeout: 7000 }); // Wait up to 7s
     if (await acceptButton.isVisible()) {
       await acceptButton.click();
     }

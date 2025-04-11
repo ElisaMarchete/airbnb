@@ -1,15 +1,15 @@
 // **Feature: Search Properties by Guests**
 
 import { test, expect } from "@playwright/test";
-import { page } from "../gobal-setup.spec";
 
-test("Search Properties by Guests", async () => {
+test("Search Properties by Guests", async ({ page }) => {
+  await page.goto("/");
   // Wait for the cookie banner to appear, but do not fail if it doesn't show up
   const cookieBannerSelector = '[data-testid="main-cookies-banner-container"]';
   const acceptButton = page.getByRole("button", { name: "Accept all" });
 
   try {
-    await page.waitForSelector(cookieBannerSelector, { timeout: 5000 }); // Wait up to 5s
+    await page.waitForSelector(cookieBannerSelector, { timeout: 7000 }); // Wait up to 7s
     if (await acceptButton.isVisible()) {
       await acceptButton.click();
     }
@@ -65,10 +65,11 @@ test("Search Properties by Guests", async () => {
   // await page.getByTestId("structured-search-input-search-button").click();
 
   // Wait for the page to load completely
-  await page.waitForLoadState("load");
+  // await page.waitForLoadState("load");
+  await page.waitForLoadState("networkidle");
 
   try {
-    await page.waitForSelector(cookieBannerSelector, { timeout: 5000 }); // Wait up to 5s
+    await page.waitForSelector(cookieBannerSelector, { timeout: 7000 }); // Wait up to 7s
     if (await acceptButton.isVisible()) {
       await acceptButton.click();
     }

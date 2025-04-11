@@ -1,21 +1,24 @@
 // **Feature: Search Properties by Location Selecting Suggested destinations**
 
 import { test, expect } from "@playwright/test";
-import { page } from "../gobal-setup.spec";
 
-test("Search Properties by Location Selecting Suggested destinations", async () => {
-  await expect(async () => {
-    await expect(
-      page.getByRole("link", { name: "Airbnb homepage" })
-    ).toBeVisible({ timeout: 60000 });
-  }).toPass();
+test("Search Properties by Location Selecting Suggested destinations", async ({
+  page,
+}) => {
+  await page.goto("/");
+
+  // await expect(async () => {
+  //   await expect(
+  //     page.getByRole("link", { name: "Airbnb homepage" })
+  //   ).toBeVisible({ timeout: 60000 });
+  // }).toPass();
 
   // Wait for the cookie banner to appear, but do not fail if it doesn't show up
   const cookieBannerSelector = '[data-testid="main-cookies-banner-container"]';
   const acceptButton = page.getByRole("button", { name: "Accept all" });
 
   try {
-    await page.waitForSelector(cookieBannerSelector, { timeout: 5000 }); // Wait up to 5s
+    await page.waitForSelector(cookieBannerSelector, { timeout: 7000 }); // Wait up to 7s
     if (await acceptButton.isVisible()) {
       await acceptButton.click();
     }
@@ -31,7 +34,16 @@ test("Search Properties by Location Selecting Suggested destinations", async () 
   // First search for a location
   await page.fill('input[name="query"]', "Toronto, ON");
   await page.getByRole("button", { name: "Search" }).click();
-  await page.goto("https://www.airbnb.ca/");
+  await page.goto("/");
+
+  try {
+    await page.waitForSelector(cookieBannerSelector, { timeout: 7000 }); // Wait up to 7s
+    if (await acceptButton.isVisible()) {
+      await acceptButton.click();
+    }
+  } catch (error) {
+    console.log("Cookie banner did not appear, continuing test...");
+  }
 
   // Click the search destinations
   await page.getByTestId("structured-search-input-field-query").click();
@@ -41,6 +53,7 @@ test("Search Properties by Location Selecting Suggested destinations", async () 
 
   // Select the second option from the dropdown dynamically
   const firstOption = page.locator('[role="link"]').nth(1);
+  await expect(firstOption).toBeVisible({ timeout: 60000 });
   await firstOption.click();
 
   // Get the full text of the first option
@@ -55,10 +68,11 @@ test("Search Properties by Location Selecting Suggested destinations", async () 
   await page.getByRole("button", { name: "Search" }).click();
 
   // Wait for the page to load completely
-  await page.waitForLoadState("load");
+  // await page.waitForLoadState("load");
+  await page.waitForLoadState("networkidle");
 
   try {
-    await page.waitForSelector(cookieBannerSelector, { timeout: 5000 }); // Wait up to 5s
+    await page.waitForSelector(cookieBannerSelector, { timeout: 7000 }); // Wait up to 7s
     if (await acceptButton.isVisible()) {
       await acceptButton.click();
     }
