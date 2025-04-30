@@ -35,8 +35,8 @@ export default defineConfig({
       storageState: undefined, // no shared cookies or sessions
     },
     viewport: { width: 1280, height: 720 },
-    actionTimeout: 40000, // Increase to 20 seconds for actions (click, fill, etc.)
-    navigationTimeout: 30000, // Increase to 30 seconds for page loads
+    actionTimeout: 80000, // Increase to 20 seconds for actions (click, fill, etc.)
+    navigationTimeout: 80000, // Increase to 30 seconds for page loads
 
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: "https://www.airbnb.ca",

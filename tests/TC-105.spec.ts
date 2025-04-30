@@ -4,6 +4,7 @@ import { test, expect } from "@playwright/test";
 
 test("Search Properties by Guests", async ({ page }) => {
   await page.goto("/");
+
   // Wait for the cookie banner to appear, but do not fail if it doesn't show up
   const cookieBannerSelector = '[data-testid="main-cookies-banner-container"]';
   const acceptButton = page.getByRole("button", { name: "Accept all" });
@@ -76,13 +77,15 @@ test("Search Properties by Guests", async ({ page }) => {
     console.log("Cookie banner did not appear, continuing test...");
   }
 
-  //Check if there is at least one result displayed
-  const results = await page.locator('[data-testid="search-results"]').count();
-  console.log(`Number of results: ${results}`);
+  // Confirm page displays more than one listing card
+  const listingGroups = await page.locator('div[role="group"]').count();
+  console.log(`Number of groups: ${listingGroups}`);
+  expect(listingGroups).toBeGreaterThan(0);
 
   // Check if there is at least one property displayed
   const count = await page.locator('[data-testid="card-container"]').count();
   expect(count).toBeGreaterThan(0);
+  console.log(`Number of results: ${count}`);
 
   // Check if the map is NOT visible
   await expect(page.locator('[data-testid="map/GoogleMap"]')).not.toBeVisible();

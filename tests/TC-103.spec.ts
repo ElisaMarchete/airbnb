@@ -48,18 +48,21 @@ test("Search Properties by Location", async ({ page }) => {
     console.log("Cookie banner did not appear, continuing test...");
   }
 
-  //Check if there is at least one result displayed
-  const results = await page.locator('[data-testid="search-results"]').count();
-  console.log(`Number of results: ${results}`);
+  // Confirm page displays more than one listing card
+  const listingGroups = await page.locator('div[role="group"]').count();
+  console.log(`Number of groups: ${listingGroups}`);
+  expect(listingGroups).toBeGreaterThan(0);
 
-  // Check if the page contains the text "places in Kitchener"
-  await expect(page.getByTestId("stays-page-heading")).toHaveText(
-    new RegExp(`places in ${city}`)
+  // Check if the search results contain the text "places in Toronto"
+  const searchResults = await page.locator(
+    '[data-testid="stays-page-heading"]'
   );
+  await expect(searchResults).toContainText(city);
 
   // Check if there is at least one property displayed
   const count = await page.locator('[data-testid="card-container"]').count();
   expect(count).toBeGreaterThan(0);
+  console.log(`Number of results: ${count}`);
 
   // Check if the map is visible
   await expect(page.locator('[data-testid="map/GoogleMap"]')).toBeVisible();

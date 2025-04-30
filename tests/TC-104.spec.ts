@@ -33,11 +33,6 @@ test("Search Properties by Date", async ({ page }) => {
     console.log("Cookie banner did not appear, continuing test...");
   }
 
-  // Check if there is the text "airbnb" in the page
-  // await expect(
-  //   page.getByRole("link", { name: "Airbnb homepage" })
-  // ).toBeVisible();
-
   // Select the check-in date
   await page.getByTestId("structured-search-input-field-split-dates-0").click();
 
@@ -58,10 +53,6 @@ test("Search Properties by Date", async ({ page }) => {
   // Click the search button
   await page.getByRole("button", { name: "Search" }).click();
 
-  // Wait for the page to load completely
-  // await page.waitForLoadState("load");
-  await page.waitForLoadState("networkidle");
-
   try {
     await page.waitForSelector(cookieBannerSelector, { timeout: 7000 }); // Wait up to 7s
     if (await acceptButton.isVisible()) {
@@ -71,13 +62,15 @@ test("Search Properties by Date", async ({ page }) => {
     console.log("Cookie banner did not appear, continuing test...");
   }
 
-  //Check if there is at least one result displayed
-  const results = await page.locator('[data-testid="search-results"]').count();
-  console.log(`Number of results: ${results}`);
+  // Confirm page displays more than one listing card
+  const listingGroups = await page.locator('div[role="group"]').count();
+  console.log(`Number of groups: ${listingGroups}`);
+  expect(listingGroups).toBeGreaterThan(0);
 
   // Check if there is at least one property displayed
   const count = await page.locator('[data-testid="card-container"]').count();
   expect(count).toBeGreaterThan(0);
+  console.log(`Number of results: ${count}`);
 
   // Check if the map is NOT visible
   await expect(page.locator('[data-testid="map/GoogleMap"]')).not.toBeVisible();
