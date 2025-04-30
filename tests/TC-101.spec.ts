@@ -118,8 +118,7 @@ test("Search Properties by Location, Date, Number of Guests, including Pet", asy
   await page.getByRole("button", { name: "Search" }).click();
 
   // Wait for the page to load completely
-  // await page.waitForLoadState("load");
-  await page.waitForLoadState("networkidle");
+  await page.waitForLoadState("load");
 
   try {
     await page.waitForSelector(cookieBannerSelector, { timeout: 7000 }); // Wait up to 7s

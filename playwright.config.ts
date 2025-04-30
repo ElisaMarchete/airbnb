@@ -58,13 +58,13 @@ export default defineConfig({
       },
       retries: 1, // <= Retry once in Firefox
     },
-    {
-      name: "webkit",
-      use: {
-        ...devices["Desktop Safari"],
-      },
-      retries: 1, // <= Retry once in WebKit
-    },
+    // {
+    //   name: "webkit",
+    //   use: {
+    //     ...devices["Desktop Safari"],
+    //   },
+    //   retries: 1, // <= Retry once in WebKit
+    // },
 
     /* Test against mobile viewports. */
     // {

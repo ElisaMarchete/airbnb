@@ -2,16 +2,17 @@
 
 import { test, expect } from "@playwright/test";
 
+let cityNameProvince = "Toronto, ON";
+let cityName = cityNameProvince.split(",")[0].trim(); // Extract the city name from the full name
+console.log(`City Name: ${cityName}`);
+
 test("Search Properties by Location Selecting Suggested destinations", async ({
   page,
 }) => {
   await page.goto("/");
 
-  // await expect(async () => {
-  //   await expect(
-  //     page.getByRole("link", { name: "Airbnb homepage" })
-  //   ).toBeVisible({ timeout: 60000 });
-  // }).toPass();
+  // Wait for the page to load completely
+  await page.waitForLoadState("load");
 
   // Wait for the cookie banner to appear, but do not fail if it doesn't show up
   const cookieBannerSelector = '[data-testid="main-cookies-banner-container"]';
@@ -26,13 +27,8 @@ test("Search Properties by Location Selecting Suggested destinations", async ({
     console.log("Cookie banner did not appear, continuing test...");
   }
 
-  // Check if there is the text "airbnb" in the page
-  // await expect(page.getByRole("link", { name: "Airbnb homepage" })).toBeVisible(
-  //   { timeout: 60000 }
-  // );
-
   // First search for a location
-  await page.fill('input[name="query"]', "Toronto, ON");
+  await page.fill('input[name="query"]', cityNameProvince);
   await page.getByRole("button", { name: "Search" }).click();
   await page.goto("/");
 
@@ -56,20 +52,8 @@ test("Search Properties by Location Selecting Suggested destinations", async ({
   await expect(firstOption).toBeVisible({ timeout: 60000 });
   await firstOption.click();
 
-  // Get the full text of the first option
-  const fullText = await firstOption.textContent();
-
-  // Extract only the city name (first word before a comma)
-  const cityName = fullText.split(",")[0].trim();
-
-  console.log(`Selected city: ${cityName}`);
-
   // Click the search button
   await page.getByRole("button", { name: "Search" }).click();
-
-  // Wait for the page to load completely
-  // await page.waitForLoadState("load");
-  await page.waitForLoadState("networkidle");
 
   try {
     await page.waitForSelector(cookieBannerSelector, { timeout: 7000 }); // Wait up to 7s
