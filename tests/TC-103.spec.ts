@@ -9,21 +9,31 @@ let searchLocation = "LocationKitchener";
 let searchAnytime = "Check-in / CheckoutAny week";
 let searchGuests = "GuestsAdd guests";
 
+// Function to automatically accept cookies if the button is visible
+async function autoAcceptCookies(page) {
+  const button = page.getByRole("button", { name: "Accept all" });
+
+  for (let i = 0; i < 10; i++) {
+    try {
+      if (await button.isVisible()) {
+        await button.click();
+        break;
+      }
+    } catch {
+      // Safe to ignore errors
+    }
+    await page.waitForTimeout(1000);
+  }
+}
+
 test("Search Properties by Location", async ({ page }) => {
   await page.goto("/");
 
-  // Wait for the cookie banner to appear, but do not fail if it doesn't show up
-  const cookieBannerSelector = '[data-testid="main-cookies-banner-container"]';
-  const acceptButton = page.getByRole("button", { name: "Accept all" });
+  // Wait for the page DOM to load completely
+  await page.waitForLoadState("domcontentloaded");
 
-  try {
-    await page.waitForSelector(cookieBannerSelector, { timeout: 7000 }); // Wait up to 7s
-    if (await acceptButton.isVisible()) {
-      await acceptButton.click();
-    }
-  } catch (error) {
-    console.log("Cookie banner did not appear, continuing test...");
-  }
+  // Check if the cookie banner is visible and accept cookies if it is
+  await autoAcceptCookies(page);
 
   // Check if there is the text "airbnb" in the page
   await expect(
@@ -36,33 +46,24 @@ test("Search Properties by Location", async ({ page }) => {
   // Click the search button
   await page.getByRole("button", { name: "Search" }).click();
 
-  // Wait for the page to load completely
-  await page.waitForLoadState("load");
-
-  try {
-    await page.waitForSelector(cookieBannerSelector, { timeout: 7000 }); // Wait up to 7s
-    if (await acceptButton.isVisible()) {
-      await acceptButton.click();
-    }
-  } catch (error) {
-    console.log("Cookie banner did not appear, continuing test...");
-  }
-
-  // Confirm page displays more than one listing card
-  const listingGroups = await page.locator('div[role="group"]').count();
-  console.log(`Number of groups: ${listingGroups}`);
-  expect(listingGroups).toBeGreaterThan(0);
+  // Wait for the page DOM to load completely
+  await page.waitForLoadState("domcontentloaded");
 
   // Check if the search results contain the text "places in Toronto"
-  const searchResults = await page.locator(
-    '[data-testid="stays-page-heading"]'
-  );
+  const searchResults = page.locator('[data-testid="stays-page-heading"]');
   await expect(searchResults).toContainText(city);
 
-  // Check if there is at least one property displayed
-  const count = await page.locator('[data-testid="card-container"]').count();
-  expect(count).toBeGreaterThan(0);
-  console.log(`Number of results: ${count}`);
+  // Check how many properties cards are displayed in the first page
+  await page.waitForSelector('[data-testid="card-container"]', {
+    timeout: 20000,
+  });
+  const propertiesCards = await page
+    .locator('[data-testid="card-container"]')
+    .count();
+  expect(propertiesCards).toBeGreaterThan(0);
+  console.log(
+    `properties cards displayed in the first page: ${propertiesCards}`
+  );
 
   // Check if the map is visible
   await expect(page.locator('[data-testid="map/GoogleMap"]')).toBeVisible();
