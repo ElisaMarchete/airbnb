@@ -37,6 +37,7 @@ test("Search Properties by Location Selecting Suggested destinations", async ({
   // Search by adding a location
   await page.fill('input[name="query"]', cityNameProvince);
   await page.getByRole("button", { name: "Search" }).click();
+  await page.waitForLoadState("domcontentloaded");
 
   // Navigate to the homepage again
   await page.goto("/");
@@ -47,12 +48,12 @@ test("Search Properties by Location Selecting Suggested destinations", async ({
   // Click the search destinations
   await page.getByTestId("structured-search-input-field-query").click();
 
-  await page.getByText("Suggested destinations").waitFor({ timeout: 60000 });
+  await page.getByText("Suggested destinations").waitFor({ timeout: 40000 });
 
   // find the previous searched location in the suggested destionations dropdown list
   const location = page.locator('[role="link"]').filter({ hasText: cityName });
 
-  await expect(location).toBeVisible({ timeout: 60000 });
+  await expect(location).toBeVisible({ timeout: 40000 });
   await location.click();
 
   // Click the search button
