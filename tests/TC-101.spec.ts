@@ -25,7 +25,7 @@ const formatDate = (daysFromToday: number): string => {
 
 // Use formatDate to get the desired check-in and check-out dates
 const checkInDate = formatDate(15); // Add 15 days
-const checkOutDate = formatDate(20); // Add 20 days
+const checkOutDate = formatDate(25); // Add 25 days
 
 // Function to automatically accept cookies if the button is visible
 async function autoAcceptCookies(page) {
@@ -58,28 +58,41 @@ test("Search Properties by Location, Date, Number of Guests, including Pet", asy
   // Search for Kitchener, ON
   await page.fill('input[name="query"]', cityCountry);
 
-  // click calendar check in
+  // Click calendar check-in
   const checkInCalendar = page.getByRole("button", {
     name: "Check in Add dates",
   });
-  await checkInCalendar.scrollIntoViewIfNeeded();
   await checkInCalendar.click();
-  await page.getByRole("button", { name: `${checkInDate}` }).click();
 
-  // Wait for a moment to allow potential layout shifts or scrolls
-  await page.waitForTimeout(300);
+  await page
+    .getByRole("button", { name: new RegExp(`${checkInDate}`, "i") })
+    .click();
 
-  // Ensure the checkout date is still visible — if not, re-open the calendar
-  const checkOutDateButton = page.getByRole("button", {
-    name: "Check out Add dates",
-  });
-
-  if (!(await checkOutDateButton.isVisible())) {
+  // Try to click check-out directly
+  try {
+    await page
+      .getByRole("button", { name: new RegExp(`${checkOutDate}`, "i") })
+      .click({ timeout: 2000 });
+  } catch {
+    // Reopen the calendar
     await page.getByTestId("little-search-date").click();
-  }
 
-  // click calendar check out
-  await page.getByRole("button", { name: `${checkOutDate}` }).click();
+    // Ensure calendar UI is visible before proceeding
+    await page
+      .getByRole("application", { name: "Calendar" })
+      .waitFor({ state: "visible", timeout: 5000 });
+
+    // Click the checkout calendar button (to avoid overwriting check-in)
+    const checkOutCalendar = page.getByRole("button", {
+      name: "Check out Add dates",
+    });
+    await checkOutCalendar.click();
+
+    // Click the check-out date
+    await page
+      .getByRole("button", { name: new RegExp(`${checkOutDate}`, "i") })
+      .click();
+  }
 
   // Click on the Who (Add Guests) field
   let guestsButton = page.getByRole("button", { name: "Who Add guests" });
@@ -144,15 +157,16 @@ test("Search Properties by Location, Date, Number of Guests, including Pet", asy
     await page.waitForTimeout(200);
   }
 
-  // Click the search button
-  const searchButton = page.getByTestId(
-    "structured-search-input-search-button"
-  );
+  // click search button
+  let searchButton = page.getByTestId("structured-search-input-search-button");
   await searchButton.scrollIntoViewIfNeeded();
   await searchButton.click();
 
   // Wait for the page DOM to load completely
   await page.waitForLoadState("domcontentloaded");
+
+  // Accept cookies if the cookie banner appears
+  await autoAcceptCookies(page);
 
   // Check if the search results contain the location name added in the search
   const searchResults = page.locator('[data-testid="stays-page-heading"]');
@@ -160,7 +174,7 @@ test("Search Properties by Location, Date, Number of Guests, including Pet", asy
 
   // Check how many properties cards are displayed in the first page
   await page.waitForSelector('[data-testid="card-container"]', {
-    timeout: 20000,
+    timeout: 60000,
   });
   const propertiesCards = await page
     .locator('[data-testid="card-container"]')
@@ -179,7 +193,6 @@ test("Search Properties by Location, Date, Number of Guests, including Pet", asy
   );
 
   // Check the date field result
-  // Extract day and month
   const splitCheckin = checkInDate.split(", "); // ["23", "Sunday", "March 2025"]
   const day = splitCheckin[0]; // "23"
   const month = splitCheckin[2].split(" ")[0].slice(0, 3); // "March" → "Mar"

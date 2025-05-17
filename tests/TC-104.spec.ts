@@ -44,42 +44,56 @@ test("Search Properties by Date", async ({ page }) => {
   // Check if the cookie banner is visible and accept cookies if it is
   await autoAcceptCookies(page);
 
-  // click calendar check in
+  // Click calendar check-in
   const checkInCalendar = page.getByRole("button", {
     name: "Check in Add dates",
   });
-  await checkInCalendar.scrollIntoViewIfNeeded();
   await checkInCalendar.click();
-  await page.getByRole("button", { name: `${checkInDate}` }).click();
 
-  // Wait for a moment to allow potential layout shifts or scrolls
-  await page.waitForTimeout(300);
+  await page
+    .getByRole("button", { name: new RegExp(`${checkInDate}`, "i") })
+    .click();
 
-  // Ensure the checkout date is still visible — if not, re-open the calendar
-  const checkOutDateButton = page.getByRole("button", {
-    name: "Check out Add dates",
-  });
-
-  if (!(await checkOutDateButton.isVisible())) {
+  // Try to click check-out directly
+  try {
+    await page
+      .getByRole("button", { name: new RegExp(`${checkOutDate}`, "i") })
+      .click({ timeout: 2000 });
+  } catch {
+    // Reopen the calendar
     await page.getByTestId("little-search-date").click();
+
+    // Ensure calendar UI is visible before proceeding
+    await page
+      .getByRole("application", { name: "Calendar" })
+      .waitFor({ state: "visible", timeout: 5000 });
+
+    // Click the checkout calendar button (to avoid overwriting check-in)
+    const checkOutCalendar = page.getByRole("button", {
+      name: "Check out Add dates",
+    });
+    await checkOutCalendar.click();
+
+    // Click the check-out date
+    await page
+      .getByRole("button", { name: new RegExp(`${checkOutDate}`, "i") })
+      .click();
   }
 
-  // click calendar check out
-  await page.getByRole("button", { name: `${checkOutDate}` }).click();
-
-  // Click the search button
-  const searchButton = page.getByTestId(
-    "structured-search-input-search-button"
-  );
+  // click search button
+  let searchButton = page.getByTestId("structured-search-input-search-button");
   await searchButton.scrollIntoViewIfNeeded();
   await searchButton.click();
 
   // Wait for the page DOM to load completely
   await page.waitForLoadState("domcontentloaded");
 
+  // Accept cookies if the cookie banner appears
+  await autoAcceptCookies(page);
+
   // Check how many properties cards are displayed in the first page
   await page.waitForSelector('[data-testid="card-container"]', {
-    timeout: 20000,
+    timeout: 60000,
   });
   const propertiesCards = await page
     .locator('[data-testid="card-container"]')
@@ -100,7 +114,6 @@ test("Search Properties by Date", async ({ page }) => {
   );
 
   // Check the date field result
-  // Extract day and month
   const splitCheckin = checkInDate.split(", "); // ["23", "Sunday", "March 2025"]
   const day = splitCheckin[0]; // "23"
   const month = splitCheckin[2].split(" ")[0].slice(0, 3); // "March" → "Mar"

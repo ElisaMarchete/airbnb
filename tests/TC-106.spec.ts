@@ -45,11 +45,18 @@ test("Search Properties by Location Selecting Suggested destinations", async ({
   // Wait for the page DOM to load completely
   await page.waitForLoadState("domcontentloaded");
 
+  await page.waitForTimeout(5000);
+
   // Navigate to the homepage again
   await page.goto("/");
 
   // Wait for the page DOM to load completely
   await page.waitForLoadState("domcontentloaded");
+
+  // Accept cookies if the cookie banner appears
+  await autoAcceptCookies(page);
+
+  await page.waitForTimeout(5000);
 
   // Click the search destinations
   await page.getByTestId("structured-search-input-field-query").click();
@@ -78,7 +85,7 @@ test("Search Properties by Location Selecting Suggested destinations", async ({
 
   // Check how many properties cards are displayed in the first page
   await page.waitForSelector('[data-testid="card-container"]', {
-    timeout: 20000,
+    timeout: 60000,
   });
   const propertiesCards = await page
     .locator('[data-testid="card-container"]')

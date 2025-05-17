@@ -68,19 +68,20 @@ test("Search Properties by Guests", async ({ page }) => {
     await page.waitForTimeout(200);
   }
 
-  // Click the search button
-  const searchButton = page.getByTestId(
-    "structured-search-input-search-button"
-  );
+  // click search button
+  let searchButton = page.getByTestId("structured-search-input-search-button");
   await searchButton.scrollIntoViewIfNeeded();
   await searchButton.click();
 
   // Wait for the page DOM to load completely
   await page.waitForLoadState("domcontentloaded");
 
+  // Accept cookies if the cookie banner appears
+  await autoAcceptCookies(page);
+
   // Check how many properties cards are displayed in the first page
   await page.waitForSelector('[data-testid="card-container"]', {
-    timeout: 20000,
+    timeout: 60000,
   });
   const propertiesCards = await page
     .locator('[data-testid="card-container"]')

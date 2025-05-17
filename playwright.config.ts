@@ -19,15 +19,15 @@ export default defineConfig({
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   // Retry
-  retries: process.env.CI ? 2 : 2,
+  retries: process.env.CI ? 1 : 1,
   // Run 3 tests in parallel
   workers: 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [["list"], ["html"]],
+  reporter: [["list"], ["html"], ["json", { outputFile: "test-results.json" }]],
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    headless: true, //Run tests in headed mode so you can SEE the browser
+    headless: false, // Run tests in headed mode so you can SEE the browser
     video: "off", //Record a video for each test
     screenshot: "only-on-failure", // (Optional) Take a screenshot if a test fails
     trace: "retain-on-failure",
