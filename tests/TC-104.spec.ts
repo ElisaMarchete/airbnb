@@ -16,7 +16,7 @@ const formatDate = (daysFromToday: number): string => {
 
 // Use formatDate to get the desired check-in and check-out dates
 const checkInDate = formatDate(15); // Add 15 days
-const checkOutDate = formatDate(20); // Add 20 days
+const checkOutDate = formatDate(30); // Add 30 days
 
 // Function to automatically accept cookies if the button is visible
 async function autoAcceptCookies(page) {
@@ -44,25 +44,35 @@ test("Search Properties by Date", async ({ page }) => {
   // Check if the cookie banner is visible and accept cookies if it is
   await autoAcceptCookies(page);
 
-  // Select the check-in date
-  let checkinCalendar = page.getByTestId(
-    "structured-search-input-field-split-dates-0"
-  );
-  checkinCalendar.click();
-  // wait for the check-in calendar to be visible
-  await page.waitForSelector(
-    '[data-testid="structured-search-input-field-split-dates-0"]',
-    {
-      state: "visible",
-    }
-  );
-
-  // Select the check-in date
+  // click calendar check in
+  const checkInCalendar = page.getByRole("button", {
+    name: "Check in Add dates",
+  });
+  await checkInCalendar.scrollIntoViewIfNeeded();
+  await checkInCalendar.click();
   await page.getByRole("button", { name: `${checkInDate}` }).click();
-  // Select the check-out date
+
+  // Wait for a moment to allow potential layout shifts or scrolls
+  await page.waitForTimeout(300);
+
+  // Ensure the checkout date is still visible — if not, re-open the calendar
+  const checkOutDateButton = page.getByRole("button", {
+    name: "Check out Add dates",
+  });
+
+  if (!(await checkOutDateButton.isVisible())) {
+    await page.getByTestId("little-search-date").click();
+  }
+
+  // click calendar check out
   await page.getByRole("button", { name: `${checkOutDate}` }).click();
+
   // Click the search button
-  await page.getByRole("button", { name: "Search" }).click();
+  const searchButton = page.getByTestId(
+    "structured-search-input-search-button"
+  );
+  await searchButton.scrollIntoViewIfNeeded();
+  await searchButton.click();
 
   // Wait for the page DOM to load completely
   await page.waitForLoadState("domcontentloaded");
@@ -79,15 +89,15 @@ test("Search Properties by Date", async ({ page }) => {
     `properties cards displayed in the first page: ${propertiesCards}`
   );
 
-  // Check if the map is NOT visible
-  await expect(page.locator('[data-testid="map/GoogleMap"]')).not.toBeVisible();
+  // Check if the map is visible
+  await expect(page.locator('[data-testid="map/GoogleMap"]')).toBeVisible();
 
   // Assertion for the search result: location, date and guests
 
   // Check the location field result
-  await expect(
-    page.getByTestId("structured-search-input-field-query")
-  ).toHaveText("");
+  await expect(page.getByTestId("little-search-location")).toHaveText(
+    "LocationHomes nearby"
+  );
 
   // Check the date field result
   // Extract day and month
@@ -104,13 +114,13 @@ test("Search Properties by Date", async ({ page }) => {
 
   // If same month, only display the month once + checkin day - checkout day  (Mar 23 - 28)
   if (month === month2) {
-    await expect(page.getByTestId("little-search-anytime")).toHaveText(
+    await expect(page.getByTestId("little-search-date")).toHaveText(
       `Check-in / Checkout${resultCheckInDate}–${day2}`
     );
   }
   // If different month, display both months + checkin day - checkout day  (Mar 23 - Apr 28)
   else {
-    await expect(page.getByTestId("little-search-anytime")).toHaveText(
+    await expect(page.getByTestId("little-search-date")).toHaveText(
       `Check-in / Checkout${resultCheckInDate}–${resultCheckOutDate}`
     );
   }

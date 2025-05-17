@@ -36,7 +36,13 @@ test("Search Properties by Location Selecting Suggested destinations", async ({
 
   // Search by adding a location
   await page.fill('input[name="query"]', cityNameProvince);
-  await page.getByRole("button", { name: "Search" }).click();
+
+  // Click the search button
+  let searchButton = page.getByTestId("structured-search-input-search-button");
+  await searchButton.scrollIntoViewIfNeeded();
+  await searchButton.click();
+
+  // Wait for the page DOM to load completely
   await page.waitForLoadState("domcontentloaded");
 
   // Navigate to the homepage again
@@ -48,16 +54,23 @@ test("Search Properties by Location Selecting Suggested destinations", async ({
   // Click the search destinations
   await page.getByTestId("structured-search-input-field-query").click();
 
-  await page.getByText("Suggested destinations").waitFor({ timeout: 40000 });
+  let suggestedDestinations = page.getByText("Suggested destinations").nth(0);
+  await expect(suggestedDestinations).toBeVisible({ timeout: 15000 });
 
   // find the previous searched location in the suggested destionations dropdown list
-  const location = page.locator('[role="link"]').filter({ hasText: cityName });
+  const location = page
+    .locator('[role="link"]')
+    .filter({ hasText: cityName })
+    .nth(0);
 
-  await expect(location).toBeVisible({ timeout: 40000 });
+  await expect(location).toBeVisible();
   await location.click();
 
   // Click the search button
-  await page.getByRole("button", { name: "Search" }).click();
+  await searchButton.scrollIntoViewIfNeeded();
+  await expect(searchButton).toBeVisible({ timeout: 5000 });
+  await expect(searchButton).toBeEnabled({ timeout: 5000 });
+  await searchButton.click();
 
   // Check if the search results contain the location added in the search
   const searchResults = page.locator('[data-testid="stays-page-heading"]');
@@ -79,14 +92,14 @@ test("Search Properties by Location Selecting Suggested destinations", async ({
   await expect(page.locator('[data-testid="map/GoogleMap"]')).toBeVisible();
 
   // Assertion for the search result: location, date and guests
-  let searchLocation = `Location${cityName}`;
+  let searchLocation = `LocationHomes in ${cityName}`;
   let searchAnytime = "Check-in / CheckoutAny week";
   let searchGuests = "GuestsAdd guests";
 
   await expect(page.getByTestId("little-search-location")).toHaveText(
     searchLocation
   );
-  await expect(page.getByTestId("little-search-anytime")).toHaveText(
+  await expect(page.getByTestId("little-search-date")).toHaveText(
     searchAnytime
   );
   await expect(page.getByTestId("little-search-guests")).toHaveText(

@@ -29,51 +29,51 @@ test("Search Properties by Guests", async ({ page }) => {
   await autoAcceptCookies(page);
 
   // Click on the Who (Add Guests) field
-  await page.click(
-    '[data-testid="structured-search-input-field-guests-button"]'
-  );
+  let guestsButton = page.getByRole("button", { name: "Who Add guests" });
+  await guestsButton.click();
 
-  await expect(
-    page.getByTestId("search-block-filter-stepper-row-adults")
-  ).toBeVisible();
+  let adultsButton = page
+    .getByTestId("search-block-filter-stepper-row-adults")
+    .first();
+  await expect(adultsButton).toBeVisible();
 
-  await expect(
-    page.getByTestId("search-block-filter-stepper-row-children")
-  ).toBeVisible();
+  let childrenButton = page
+    .getByTestId("search-block-filter-stepper-row-children")
+    .first();
+  await expect(childrenButton).toBeVisible();
 
-  await expect(
-    page.getByTestId("search-block-filter-stepper-row-infants")
-  ).toBeVisible();
+  let infantsButton = page
+    .getByTestId("search-block-filter-stepper-row-infants")
+    .first();
+  await expect(infantsButton).toBeVisible();
 
-  await expect(
-    page.getByTestId("search-block-filter-stepper-row-pets")
-  ).toBeVisible();
+  let petsButton = page
+    .getByTestId("search-block-filter-stepper-row-pets")
+    .first();
+  await expect(petsButton).toBeVisible();
 
-  await expect(
-    page.getByTestId("search-block-filter-stepper-row-pets")
-  ).toBeVisible();
+  let serviceAnimalButton = page.getByRole("button", {
+    name: "Bringing a service animal?",
+  });
+  await expect(serviceAnimalButton).toBeVisible();
 
-  await expect(
-    page.getByRole("button", { name: "Bringing a service animal?" })
-  ).toBeVisible();
-
-  // Click the search button to add 10 adults
-
+  // Increase adults to 10
   let numberOfAdults = 10;
 
+  let addAdultButton = page
+    .getByTestId("stepper-adults-increase-button")
+    .first();
   for (let i = 0; i < numberOfAdults; i++) {
-    await page.getByTestId("stepper-adults-increase-button").click();
+    await addAdultButton.click();
+    await page.waitForTimeout(200);
   }
 
   // Click the search button
   const searchButton = page.getByTestId(
     "structured-search-input-search-button"
   );
-  await expect(searchButton).toBeVisible();
-  await expect(searchButton).toBeEnabled();
+  await searchButton.scrollIntoViewIfNeeded();
   await searchButton.click();
-
-  // await page.getByTestId("structured-search-input-search-button").click();
 
   // Wait for the page DOM to load completely
   await page.waitForLoadState("domcontentloaded");
@@ -90,28 +90,23 @@ test("Search Properties by Guests", async ({ page }) => {
     `properties cards displayed in the first page: ${propertiesCards}`
   );
 
-  // Check if the map is NOT visible
-  await expect(page.locator('[data-testid="map/GoogleMap"]')).not.toBeVisible();
+  // Check if the map is visible
+  await expect(page.locator('[data-testid="map/GoogleMap"]')).toBeVisible();
 
   // Assertion for the search result: location, date and guests
 
   // Check the location field result
-  await expect(
-    page.getByTestId("structured-search-input-field-query")
-  ).toHaveText("");
+  await expect(page.getByTestId("little-search-location")).toHaveText(
+    "LocationHomes nearby"
+  );
 
   // Check the Check-in date field result
-  await expect(
-    page.getByTestId("structured-search-input-field-split-dates-0")
-  ).toHaveText("Check inAdd dates");
-
-  // Check the Check-out date field result
-  await expect(
-    page.getByTestId("structured-search-input-field-split-dates-1")
-  ).toHaveText("Check outAdd dates");
+  await expect(page.getByTestId("little-search-date")).toHaveText(
+    "Check-in / CheckoutAny week"
+  );
 
   // Check the Guests field result
-  await expect(
-    page.getByTestId("structured-search-input-field-guests-button")
-  ).toHaveText("Who10 guests");
+  await expect(page.getByTestId("little-search-guests")).toHaveText(
+    `Guests${numberOfAdults} guests`
+  );
 });

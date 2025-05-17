@@ -5,7 +5,7 @@ import { test, expect } from "@playwright/test";
 let city = "Kitchener";
 let province = "ON";
 let cityProvince = city + ", " + province;
-let searchLocation = "LocationKitchener";
+let searchLocation = "LocationHomes in Kitchener";
 let searchAnytime = "Check-in / CheckoutAny week";
 let searchGuests = "GuestsAdd guests";
 
@@ -44,7 +44,11 @@ test("Search Properties by Location", async ({ page }) => {
   await page.fill('input[name="query"]', cityProvince);
 
   // Click the search button
-  await page.getByRole("button", { name: "Search" }).click();
+  const searchButton = page.getByTestId(
+    "structured-search-input-search-button"
+  );
+  await searchButton.scrollIntoViewIfNeeded();
+  await searchButton.click();
 
   // Wait for the page DOM to load completely
   await page.waitForLoadState("domcontentloaded");
@@ -73,7 +77,7 @@ test("Search Properties by Location", async ({ page }) => {
     searchLocation
   );
 
-  await expect(page.getByTestId("little-search-anytime")).toHaveText(
+  await expect(page.getByTestId("little-search-date")).toHaveText(
     searchAnytime
   );
 

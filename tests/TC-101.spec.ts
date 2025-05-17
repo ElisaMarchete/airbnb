@@ -58,74 +58,98 @@ test("Search Properties by Location, Date, Number of Guests, including Pet", asy
   // Search for Kitchener, ON
   await page.fill('input[name="query"]', cityCountry);
 
-  // Click the calendar
-  await page.getByTestId("structured-search-input-field-split-dates-0").click();
-
-  // wait for the calendar to be visible
-  await page.waitForSelector(
-    '[data-testid="structured-search-input-field-split-dates-0"]',
-    {
-      state: "visible",
-    }
-  );
-
-  // Click on the check-in date
+  // click calendar check in
+  const checkInCalendar = page.getByRole("button", {
+    name: "Check in Add dates",
+  });
+  await checkInCalendar.scrollIntoViewIfNeeded();
+  await checkInCalendar.click();
   await page.getByRole("button", { name: `${checkInDate}` }).click();
 
-  // Select the check-out date
+  // Wait for a moment to allow potential layout shifts or scrolls
+  await page.waitForTimeout(300);
+
+  // Ensure the checkout date is still visible — if not, re-open the calendar
+  const checkOutDateButton = page.getByRole("button", {
+    name: "Check out Add dates",
+  });
+
+  if (!(await checkOutDateButton.isVisible())) {
+    await page.getByTestId("little-search-date").click();
+  }
+
+  // click calendar check out
   await page.getByRole("button", { name: `${checkOutDate}` }).click();
 
   // Click on the Who (Add Guests) field
-  await page.click(
-    '[data-testid="structured-search-input-field-guests-button"]'
-  );
+  let guestsButton = page.getByRole("button", { name: "Who Add guests" });
+  await guestsButton.click();
 
-  await expect(
-    page.getByTestId("search-block-filter-stepper-row-adults")
-  ).toBeVisible();
+  let adultsButton = page
+    .getByTestId("search-block-filter-stepper-row-adults")
+    .first();
+  await expect(adultsButton).toBeVisible();
 
-  await expect(
-    page.getByTestId("search-block-filter-stepper-row-children")
-  ).toBeVisible();
+  let childrenButton = page
+    .getByTestId("search-block-filter-stepper-row-children")
+    .first();
+  await expect(childrenButton).toBeVisible();
 
-  await expect(
-    page.getByTestId("search-block-filter-stepper-row-infants")
-  ).toBeVisible();
+  let infantsButton = page
+    .getByTestId("search-block-filter-stepper-row-infants")
+    .first();
+  await expect(infantsButton).toBeVisible();
 
-  await expect(
-    page.getByTestId("search-block-filter-stepper-row-pets")
-  ).toBeVisible();
+  let petsButton = page
+    .getByTestId("search-block-filter-stepper-row-pets")
+    .first();
+  await expect(petsButton).toBeVisible();
 
-  await expect(
-    page.getByTestId("search-block-filter-stepper-row-pets")
-  ).toBeVisible();
-
-  await expect(
-    page.getByRole("button", { name: "Bringing a service animal?" })
-  ).toBeVisible();
+  let serviceAnimalButton = page.getByRole("button", {
+    name: "Bringing a service animal?",
+  });
+  await expect(serviceAnimalButton).toBeVisible();
 
   // Increase adults to 4
+  let addAdultButton = page
+    .getByTestId("stepper-adults-increase-button")
+    .first();
   for (let i = 0; i < numberOfAdults; i++) {
-    await page.getByTestId("stepper-adults-increase-button").click();
+    await addAdultButton.click();
+    await page.waitForTimeout(200);
   }
 
   // Increase children to 5
+  let addChildrenButton = page
+    .getByTestId("stepper-children-increase-button")
+    .first();
   for (let i = 0; i < numberOfChildren; i++) {
-    await page.getByTestId("stepper-children-increase-button").click();
+    await addChildrenButton.click();
+    await page.waitForTimeout(200);
   }
 
   // Increase infants to 1
+  let addInfantsButton = page
+    .getByTestId("stepper-infants-increase-button")
+    .first();
   for (let i = 0; i < numberOfInfants; i++) {
-    await page.getByTestId("stepper-infants-increase-button").click();
+    await addInfantsButton.click();
+    await page.waitForTimeout(200);
   }
 
   // Increase pets to 1
+  let addPetsButton = page.getByTestId("stepper-pets-increase-button").first();
   for (let i = 0; i < numberOfPets; i++) {
-    await page.getByTestId("stepper-pets-increase-button").click();
+    await addPetsButton.click();
+    await page.waitForTimeout(200);
   }
 
   // Click the search button
-  await page.getByRole("button", { name: "Search" }).click();
+  const searchButton = page.getByTestId(
+    "structured-search-input-search-button"
+  );
+  await searchButton.scrollIntoViewIfNeeded();
+  await searchButton.click();
 
   // Wait for the page DOM to load completely
   await page.waitForLoadState("domcontentloaded");
@@ -151,7 +175,7 @@ test("Search Properties by Location, Date, Number of Guests, including Pet", asy
 
   // Check the place field result
   await expect(page.getByTestId("little-search-location")).toHaveText(
-    `Location${city}`
+    `LocationHomes in ${city}`
   );
 
   // Check the date field result
@@ -169,13 +193,13 @@ test("Search Properties by Location, Date, Number of Guests, including Pet", asy
 
   // If same month, only display the month once + checkin day - checkout day  (Mar 23 - 28)
   if (month === month2) {
-    await expect(page.getByTestId("little-search-anytime")).toHaveText(
+    await expect(page.getByTestId("little-search-date")).toHaveText(
       `Check-in / Checkout${resultCheckInDate}–${day2}`
     );
   }
   // If different month, display both months + checkin day - checkout day  (Mar 23 - Apr 28)
   else {
-    await expect(page.getByTestId("little-search-anytime")).toHaveText(
+    await expect(page.getByTestId("little-search-date")).toHaveText(
       `Check-in / Checkout${resultCheckInDate}–${resultCheckOutDate}`
     );
   }
