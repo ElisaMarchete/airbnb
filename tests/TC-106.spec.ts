@@ -39,7 +39,6 @@ test("Search Properties by Location Selecting Suggested destinations", async ({
 
   // Click the search button
   let searchButton = page.getByTestId("structured-search-input-search-button");
-  await searchButton.scrollIntoViewIfNeeded();
   await searchButton.click();
 
   // Wait for the page DOM to load completely
@@ -55,8 +54,6 @@ test("Search Properties by Location Selecting Suggested destinations", async ({
 
   // Accept cookies if the cookie banner appears
   await autoAcceptCookies(page);
-
-  await page.waitForTimeout(5000);
 
   // Click the search destinations
   await page.getByTestId("structured-search-input-field-query").click();
@@ -74,7 +71,7 @@ test("Search Properties by Location Selecting Suggested destinations", async ({
   await location.click();
 
   // Click the search button
-  await searchButton.scrollIntoViewIfNeeded();
+  // await searchButton.scrollIntoViewIfNeeded();
   await expect(searchButton).toBeVisible({ timeout: 5000 });
   await expect(searchButton).toBeEnabled({ timeout: 5000 });
   await searchButton.click();

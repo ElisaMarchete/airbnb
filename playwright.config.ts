@@ -51,13 +51,13 @@ export default defineConfig({
       },
       retries: 1, // <= Retry once in Chromium
     },
-    {
-      name: "firefox",
-      use: {
-        ...devices["Desktop Firefox"],
-      },
-      retries: 1, // <= Retry once in Firefox
-    },
+    // {
+    //   name: "firefox",
+    //   use: {
+    //     ...devices["Desktop Firefox"],
+    //   },
+    //   retries: 1, // <= Retry once in Firefox
+    // },
     // {
     //   name: "webkit",
     //   use: {

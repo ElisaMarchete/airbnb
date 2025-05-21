@@ -49,20 +49,6 @@
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
         ],
         "timeout": 30000
-      },
-      {
-        "outputDir": "C:/Users/bmarc/Desktop/airbnb/test-results",
-        "repeatEach": 1,
-        "retries": 1,
-        "metadata": {},
-        "id": "firefox",
-        "name": "firefox",
-        "testDir": "C:/Users/bmarc/Desktop/airbnb/tests",
-        "testIgnore": [],
-        "testMatch": [
-          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
-        ],
-        "timeout": 30000
       }
     ],
     "shard": null,
@@ -94,7 +80,7 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 23217,
+                  "duration": 26027,
                   "errors": [],
                   "stdout": [
                     {
@@ -103,7 +89,7 @@
                   ],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2025-05-17T21:09:44.173Z",
+                  "startTime": "2025-05-21T22:59:07.938Z",
                   "attachments": []
                 }
               ],
@@ -114,32 +100,120 @@
           "file": "TC-100.spec.ts",
           "line": 42,
           "column": 5
-        },
+        }
+      ]
+    },
+    {
+      "title": "TC-101.spec.ts",
+      "file": "TC-101.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
         {
-          "title": "Search Properties by Location and Date",
-          "ok": false,
+          "title": "Search Properties by Location, Date, Number of Guests, including Pet",
+          "ok": true,
           "tags": [],
           "tests": [
             {
               "timeout": 30000,
               "annotations": [],
               "expectedStatus": "passed",
-              "projectId": "firefox",
-              "projectName": "firefox",
+              "projectId": "chromium",
+              "projectName": "chromium",
               "results": [
                 {
-                  "workerIndex": 1,
-                  "status": "timedOut",
-                  "duration": 35844,
-                  "error": {
-                    "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
-                    "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                  },
-                  "errors": [
+                  "workerIndex": 0,
+                  "status": "passed",
+                  "duration": 31294,
+                  "errors": [],
+                  "stdout": [
                     {
-                      "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                      "text": "properties cards displayed in the first page: 24\n"
                     }
                   ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2025-05-21T22:59:34.622Z",
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "f09ad700cc3f2b5bf325-42d02d004bd518d8a446",
+          "file": "TC-101.spec.ts",
+          "line": 47,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "TC-102.spec.ts",
+      "file": "TC-102.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Search Properties by Location, Date, and Number of Guests",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "status": "passed",
+                  "duration": 25881,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "properties cards displayed in the first page: 24\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2025-05-21T23:00:05.954Z",
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "340ba5841e2785c18ce6-215a932a402f6f349385",
+          "file": "TC-102.spec.ts",
+          "line": 46,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "TC-103.spec.ts",
+      "file": "TC-103.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Search Properties by Location",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "status": "passed",
+                  "duration": 19117,
+                  "errors": [],
                   "stdout": [
                     {
                       "text": "properties cards displayed in the first page: 18\n"
@@ -147,61 +221,148 @@
                   ],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2025-05-17T21:10:09.353Z",
-                  "attachments": [
-                    {
-                      "name": "screenshot",
-                      "contentType": "image/png",
-                      "path": "C:\\Users\\bmarc\\Desktop\\airbnb\\test-results\\TC-100-Search-Properties-by-Location-and-Date-firefox\\test-failed-1.png"
-                    },
-                    {
-                      "name": "trace",
-                      "contentType": "application/zip",
-                      "path": "C:\\Users\\bmarc\\Desktop\\airbnb\\test-results\\TC-100-Search-Properties-by-Location-and-Date-firefox\\trace.zip"
-                    }
-                  ]
-                },
+                  "startTime": "2025-05-21T23:00:31.861Z",
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "82e5f409458c6096b8a3-521e1f0d60739d4c0777",
+          "file": "TC-103.spec.ts",
+          "line": 29,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "TC-104.spec.ts",
+      "file": "TC-104.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Search Properties by Date",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
                 {
-                  "workerIndex": 2,
-                  "status": "timedOut",
-                  "duration": 34696,
-                  "error": {
-                    "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
-                    "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                  },
-                  "errors": [
-                    {
-                      "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                    }
-                  ],
+                  "workerIndex": 0,
+                  "status": "passed",
+                  "duration": 22040,
+                  "errors": [],
                   "stdout": [
                     {
-                      "text": "properties cards displayed in the first page: 24\n"
+                      "text": "properties cards displayed in the first page: 18\n"
                     }
                   ],
                   "stderr": [],
-                  "retry": 1,
-                  "startTime": "2025-05-17T21:10:55.243Z",
-                  "attachments": [
-                    {
-                      "name": "screenshot",
-                      "contentType": "image/png",
-                      "path": "C:\\Users\\bmarc\\Desktop\\airbnb\\test-results\\TC-100-Search-Properties-by-Location-and-Date-firefox-retry1\\test-failed-1.png"
-                    },
-                    {
-                      "name": "trace",
-                      "contentType": "application/zip",
-                      "path": "C:\\Users\\bmarc\\Desktop\\airbnb\\test-results\\TC-100-Search-Properties-by-Location-and-Date-firefox-retry1\\trace.zip"
-                    }
-                  ]
+                  "retry": 0,
+                  "startTime": "2025-05-21T23:00:51.015Z",
+                  "attachments": []
                 }
               ],
-              "status": "unexpected"
+              "status": "expected"
             }
           ],
-          "id": "6e0a3f7bca5365a19ef7-90031e1b16e336cc862d",
-          "file": "TC-100.spec.ts",
-          "line": 42,
+          "id": "d250315885236e0fd76f-69ea02003bcf5a633b3c",
+          "file": "TC-104.spec.ts",
+          "line": 38,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "TC-105.spec.ts",
+      "file": "TC-105.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Search Properties by Guests",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "status": "passed",
+                  "duration": 26071,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "properties cards displayed in the first page: 18\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2025-05-21T23:01:13.084Z",
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "88fa64fd67a00439103a-039936e7413b8291067e",
+          "file": "TC-105.spec.ts",
+          "line": 22,
+          "column": 5
+        }
+      ]
+    },
+    {
+      "title": "TC-106.spec.ts",
+      "file": "TC-106.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Search Properties by Location Selecting Suggested destinations",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "status": "passed",
+                  "duration": 32251,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "properties cards displayed in the first page: 1\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2025-05-21T23:01:39.188Z",
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "c3dd0c7863f807442fc3-b0b680a7eb09e25e1593",
+          "file": "TC-106.spec.ts",
+          "line": 26,
           "column": 5
         }
       ]
@@ -209,11 +370,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2025-05-17T21:09:43.344Z",
-    "duration": 114641.40299999999,
-    "expected": 1,
+    "startTime": "2025-05-21T22:59:06.891Z",
+    "duration": 186102.747,
+    "expected": 7,
     "skipped": 0,
-    "unexpected": 1,
+    "unexpected": 0,
     "flaky": 0
   }
 }

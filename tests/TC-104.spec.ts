@@ -44,7 +44,7 @@ test("Search Properties by Date", async ({ page }) => {
   // Check if the cookie banner is visible and accept cookies if it is
   await autoAcceptCookies(page);
 
-  // Click calendar check-in
+  // Selecting Check-in and Check-out dates in the calendar
   const checkInCalendar = page.getByRole("button", {
     name: "Check in Add dates",
   });
@@ -66,18 +66,34 @@ test("Search Properties by Date", async ({ page }) => {
     // Ensure calendar UI is visible before proceeding
     await page
       .getByRole("application", { name: "Calendar" })
-      .waitFor({ state: "visible", timeout: 5000 });
+      .waitFor({ state: "visible", timeout: 3000 });
 
-    // Click the checkout calendar button (to avoid overwriting check-in)
     const checkOutCalendar = page.getByRole("button", {
       name: "Check out Add dates",
     });
     await checkOutCalendar.click();
 
-    // Click the check-out date
-    await page
-      .getByRole("button", { name: new RegExp(`${checkOutDate}`, "i") })
-      .click();
+    // Retry clicking the checkout date up to 5 times
+    const checkoutDateButton = page.getByRole("button", {
+      name: new RegExp(`${checkOutDate}`, "i"),
+    });
+
+    let clicked = false;
+    for (let i = 0; i < 5; i++) {
+      try {
+        if (await checkoutDateButton.isVisible({ timeout: 2000 })) {
+          await checkoutDateButton.click();
+          clicked = true;
+          break;
+        }
+      } catch {
+        await page.waitForTimeout(500); // Wait a bit for UI to stabilize
+      }
+    }
+
+    if (!clicked) {
+      throw new Error(`Failed to click checkout date: ${checkOutDate}`);
+    }
   }
 
   // click search button
