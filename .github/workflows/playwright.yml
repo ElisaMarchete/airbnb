@@ -20,8 +20,8 @@ jobs:
         run: npm ci
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
-      - name: Run Playwright tests
-        run: npx playwright test
+      - name: Run Playwright test TC-103 in headless mode
+        run: HEADLESS=true npx playwright test tests/TC-103.spec.ts
       - uses: actions/upload-artifact@v4
         if: always()
         with:

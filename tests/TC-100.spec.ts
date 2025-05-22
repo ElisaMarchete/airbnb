@@ -39,6 +39,106 @@ async function autoAcceptCookies(page) {
   }
 }
 
+async function checkInSelectDate(page, checkInDate) {
+  try {
+    await page
+      .getByRole("button", { name: "Check in Add dates" })
+      .click({ timeout: 2000 });
+    const checkInDateButton = page.getByRole("button", {
+      name: new RegExp(`${checkInDate}`, "i"),
+    });
+    await checkInDateButton.click();
+  } catch {
+    // Reopen the calendar
+    await page.getByTestId("little-search-date").click();
+
+    let clicked = false;
+    for (let i = 0; i < 5; i++) {
+      try {
+        // Open the check-in calendar
+        const checkInCalendar = page.getByRole("button", {
+          name: "Check in Add dates",
+        });
+        await checkInCalendar.click();
+
+        // Ensure calendar UI is visible before proceeding
+        await page
+          .getByRole("application", { name: "Calendar" })
+          .waitFor({ state: "visible", timeout: 5000 });
+
+        // Locate the check-in date button
+        const checkInDateButton = page.getByRole("button", {
+          name: new RegExp(`${checkInDate}`, "i"),
+        });
+
+        // Wait to allow the date to render
+        await page.waitForTimeout(1000);
+
+        if (await checkInDateButton.isVisible({ timeout: 2000 })) {
+          await checkInDateButton.click();
+          clicked = true;
+          break;
+        }
+      } catch {
+        // Wait before retrying
+        await page.waitForTimeout(500);
+      }
+    }
+
+    if (!clicked) {
+      throw new Error(`Failed to click check-in date: ${checkInDate}`);
+    }
+  }
+}
+
+async function checkoutSelectDate(page, checkOutDate) {
+  try {
+    await page
+      .getByRole("button", { name: new RegExp(`${checkOutDate}`, "i") })
+      .click({ timeout: 2000 });
+  } catch {
+    // Reopen the calendar
+    await page.getByTestId("little-search-date").click();
+
+    let clicked = false;
+    for (let i = 0; i < 5; i++) {
+      try {
+        // Open the checkout calendar
+        const checkOutCalendar = page.getByRole("button", {
+          name: "Check out Add dates",
+        });
+        await checkOutCalendar.click();
+
+        // Ensure calendar UI is visible before proceeding
+        await page
+          .getByRole("application", { name: "Calendar" })
+          .waitFor({ state: "visible", timeout: 5000 });
+
+        // Locate the checkout date button
+        const checkoutDateButton = page.getByRole("button", {
+          name: new RegExp(`${checkOutDate}`, "i"),
+        });
+
+        // Wait to allow the date to render
+        await page.waitForTimeout(1000);
+
+        if (await checkoutDateButton.isVisible({ timeout: 2000 })) {
+          await checkoutDateButton.click();
+          clicked = true;
+          break;
+        }
+      } catch {
+        // Wait before retrying
+        await page.waitForTimeout(500);
+      }
+    }
+
+    if (!clicked) {
+      throw new Error(`Failed to click checkout date: ${checkOutDate}`);
+    }
+  }
+}
+
 test("Search Properties by Location and Date", async ({ page }) => {
   await page.goto("/");
 
@@ -50,57 +150,9 @@ test("Search Properties by Location and Date", async ({ page }) => {
   // Search adding a location
   await page.fill('input[name="query"]', cityCountry);
 
-  // Selecting Check-in and Check-out dates in the calendar
-  const checkInCalendar = page.getByRole("button", {
-    name: "Check in Add dates",
-  });
-  await checkInCalendar.click();
-
-  await page
-    .getByRole("button", { name: new RegExp(`${checkInDate}`, "i") })
-    .click();
-
-  // Try to click check-out directly
-  try {
-    await page
-      .getByRole("button", { name: new RegExp(`${checkOutDate}`, "i") })
-      .click({ timeout: 2000 });
-  } catch {
-    // Reopen the calendar
-    await page.getByTestId("little-search-date").click();
-
-    // Ensure calendar UI is visible before proceeding
-    await page
-      .getByRole("application", { name: "Calendar" })
-      .waitFor({ state: "visible", timeout: 3000 });
-
-    const checkOutCalendar = page.getByRole("button", {
-      name: "Check out Add dates",
-    });
-    await checkOutCalendar.click();
-
-    // Retry clicking the checkout date up to 5 times
-    const checkoutDateButton = page.getByRole("button", {
-      name: new RegExp(`${checkOutDate}`, "i"),
-    });
-
-    let clicked = false;
-    for (let i = 0; i < 5; i++) {
-      try {
-        if (await checkoutDateButton.isVisible({ timeout: 2000 })) {
-          await checkoutDateButton.click();
-          clicked = true;
-          break;
-        }
-      } catch {
-        await page.waitForTimeout(500); // Wait a bit for UI to stabilize
-      }
-    }
-
-    if (!clicked) {
-      throw new Error(`Failed to click checkout date: ${checkOutDate}`);
-    }
-  }
+  // Select Check-in and Check-out dates in the calendar
+  await checkInSelectDate(page, checkInDate);
+  await checkoutSelectDate(page, checkOutDate);
 
   // click search button
   let searchButton = page.getByTestId("structured-search-input-search-button");

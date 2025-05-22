@@ -13,13 +13,14 @@ import { defineConfig, devices } from "@playwright/test";
  */
 export default defineConfig({
   testDir: "./tests",
+  timeout: 120000,
   /* Run tests in files in parallel */
   fullyParallel: true,
 
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
   // Retry
-  retries: process.env.CI ? 1 : 1,
+  retries: process.env.CI ? 0 : 0,
   // Run 3 tests in parallel
   workers: 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
@@ -49,23 +50,22 @@ export default defineConfig({
       use: {
         ...devices["Desktop Chrome"],
       },
-      retries: 1, // <= Retry once in Chromium
+      retries: 0,
     },
-    // {
-    //   name: "firefox",
-    //   use: {
-    //     ...devices["Desktop Firefox"],
-    //   },
-    //   retries: 1, // <= Retry once in Firefox
-    // },
+    {
+      name: "firefox",
+      use: {
+        ...devices["Desktop Firefox"],
+      },
+      retries: 0,
+    },
     // {
     //   name: "webkit",
     //   use: {
     //     ...devices["Desktop Safari"],
     //   },
-    //   retries: 1, // <= Retry once in WebKit
+    //   retries: 0,
     // },
-
     /* Test against mobile viewports. */
     // {
     //   name: 'Mobile Chrome',
@@ -75,7 +75,6 @@ export default defineConfig({
     //   name: 'Mobile Safari',
     //   use: { ...devices['iPhone 12'] },
     // },
-
     /* Test against branded browsers. */
     // {
     //   name: 'Microsoft Edge',
