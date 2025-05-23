@@ -11,7 +11,7 @@
     "grepInvert": null,
     "maxFailures": 0,
     "metadata": {
-      "actualWorkers": 1
+      "actualWorkers": 2
     },
     "preserveOutput": "always",
     "reporter": [
@@ -63,27 +63,13 @@
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
         ],
         "timeout": 120000
-      },
-      {
-        "outputDir": "C:/Users/bmarc/Desktop/airbnb/test-results",
-        "repeatEach": 1,
-        "retries": 0,
-        "metadata": {},
-        "id": "webkit",
-        "name": "webkit",
-        "testDir": "C:/Users/bmarc/Desktop/airbnb/tests",
-        "testIgnore": [],
-        "testMatch": [
-          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
-        ],
-        "timeout": 120000
       }
     ],
     "shard": null,
     "updateSnapshots": "missing",
     "updateSourceMethod": "patch",
     "version": "1.50.1",
-    "workers": 1,
+    "workers": 2,
     "webServer": null
   },
   "suites": [
@@ -108,7 +94,7 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 21603,
+                  "duration": 30845,
                   "errors": [],
                   "stdout": [
                     {
@@ -117,7 +103,7 @@
                   ],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2025-05-22T15:19:37.257Z",
+                  "startTime": "2025-05-23T00:29:47.061Z",
                   "attachments": []
                 }
               ],
@@ -131,7 +117,7 @@
         },
         {
           "title": "Search Properties by Location and Date",
-          "ok": false,
+          "ok": true,
           "tags": [],
           "tests": [
             {
@@ -142,58 +128,25 @@
               "projectName": "firefox",
               "results": [
                 {
-                  "workerIndex": 1,
-                  "status": "timedOut",
-                  "duration": 120038,
-                  "error": {
-                    "message": "\u001b[31mTest timeout of 120000ms exceeded while setting up \"page\".\u001b[39m",
-                    "stack": "\u001b[31mTest timeout of 120000ms exceeded while setting up \"page\".\u001b[39m"
-                  },
-                  "errors": [
+                  "workerIndex": 2,
+                  "status": "passed",
+                  "duration": 48152,
+                  "errors": [],
+                  "stdout": [
                     {
-                      "message": "\u001b[31mTest timeout of 120000ms exceeded while setting up \"page\".\u001b[39m"
-                    },
-                    {
-                      "message": "Error: browserContext.newPage: Test timeout of 120000ms exceeded."
+                      "text": "properties cards displayed in the first page: 18\n"
                     }
                   ],
-                  "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2025-05-22T15:22:39.429Z",
-                  "attachments": [
-                    {
-                      "name": "trace",
-                      "contentType": "application/zip",
-                      "path": "C:\\Users\\bmarc\\Desktop\\airbnb\\test-results\\TC-100-Search-Properties-by-Location-and-Date-firefox\\trace.zip"
-                    }
-                  ]
+                  "startTime": "2025-05-23T00:31:25.907Z",
+                  "attachments": []
                 }
               ],
-              "status": "unexpected"
+              "status": "expected"
             }
           ],
           "id": "6e0a3f7bca5365a19ef7-90031e1b16e336cc862d",
-          "file": "TC-100.spec.ts",
-          "line": 142,
-          "column": 5
-        },
-        {
-          "title": "Search Properties by Location and Date",
-          "ok": true,
-          "tags": [],
-          "tests": [
-            {
-              "timeout": 120000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "webkit",
-              "projectName": "webkit",
-              "results": [],
-              "status": "skipped"
-            }
-          ],
-          "id": "6e0a3f7bca5365a19ef7-9b1aa6b097090db4a137",
           "file": "TC-100.spec.ts",
           "line": 142,
           "column": 5
@@ -219,9 +172,9 @@
               "projectName": "chromium",
               "results": [
                 {
-                  "workerIndex": 0,
+                  "workerIndex": 1,
                   "status": "passed",
-                  "duration": 32561,
+                  "duration": 41667,
                   "errors": [],
                   "stdout": [
                     {
@@ -230,7 +183,7 @@
                   ],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2025-05-22T15:19:59.529Z",
+                  "startTime": "2025-05-23T00:29:47.065Z",
                   "attachments": []
                 }
               ],
@@ -244,7 +197,7 @@
         },
         {
           "title": "Search Properties by Location, Date, Number of Guests, including Pet",
-          "ok": false,
+          "ok": true,
           "tags": [],
           "tests": [
             {
@@ -255,58 +208,25 @@
               "projectName": "firefox",
               "results": [
                 {
-                  "workerIndex": 2,
-                  "status": "timedOut",
-                  "duration": 120045,
-                  "error": {
-                    "message": "\u001b[31mTest timeout of 120000ms exceeded while setting up \"page\".\u001b[39m",
-                    "stack": "\u001b[31mTest timeout of 120000ms exceeded while setting up \"page\".\u001b[39m"
-                  },
-                  "errors": [
+                  "workerIndex": 3,
+                  "status": "passed",
+                  "duration": 61166,
+                  "errors": [],
+                  "stdout": [
                     {
-                      "message": "\u001b[31mTest timeout of 120000ms exceeded while setting up \"page\".\u001b[39m"
-                    },
-                    {
-                      "message": "Error: browserContext.newPage: Test timeout of 120000ms exceeded."
+                      "text": "properties cards displayed in the first page: 18\n"
                     }
                   ],
-                  "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2025-05-22T15:24:41.696Z",
-                  "attachments": [
-                    {
-                      "name": "trace",
-                      "contentType": "application/zip",
-                      "path": "C:\\Users\\bmarc\\Desktop\\airbnb\\test-results\\TC-101-Search-Properties-b-3f9cd-ber-of-Guests-including-Pet-firefox\\trace.zip"
-                    }
-                  ]
+                  "startTime": "2025-05-23T00:31:51.979Z",
+                  "attachments": []
                 }
               ],
-              "status": "unexpected"
+              "status": "expected"
             }
           ],
           "id": "f09ad700cc3f2b5bf325-1978afb2b38d1beecbc2",
-          "file": "TC-101.spec.ts",
-          "line": 147,
-          "column": 5
-        },
-        {
-          "title": "Search Properties by Location, Date, Number of Guests, including Pet",
-          "ok": true,
-          "tags": [],
-          "tests": [
-            {
-              "timeout": 120000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "webkit",
-              "projectName": "webkit",
-              "results": [],
-              "status": "skipped"
-            }
-          ],
-          "id": "f09ad700cc3f2b5bf325-e057226588ba9fa03a66",
           "file": "TC-101.spec.ts",
           "line": 147,
           "column": 5
@@ -334,7 +254,7 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 33802,
+                  "duration": 31038,
                   "errors": [],
                   "stdout": [
                     {
@@ -343,7 +263,7 @@
                   ],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2025-05-22T15:20:32.128Z",
+                  "startTime": "2025-05-23T00:30:18.453Z",
                   "attachments": []
                 }
               ],
@@ -368,58 +288,25 @@
               "projectName": "firefox",
               "results": [
                 {
-                  "workerIndex": 3,
-                  "status": "interrupted",
-                  "duration": 41162,
-                  "error": {
-                    "message": "Error: browserContext.newPage: Target page, context or browser has been closed",
-                    "stack": "Error: browserContext.newPage: Target page, context or browser has been closed"
-                  },
-                  "errors": [
+                  "workerIndex": 2,
+                  "status": "passed",
+                  "duration": 61792,
+                  "errors": [],
+                  "stdout": [
                     {
-                      "message": "Error: browserContext.newPage: Target page, context or browser has been closed"
-                    },
-                    {
-                      "message": "Error: browserContext._wrapApiCall: Target page, context or browser has been closed"
+                      "text": "properties cards displayed in the first page: 18\n"
                     }
                   ],
-                  "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2025-05-22T15:26:44.020Z",
-                  "attachments": [
-                    {
-                      "name": "trace",
-                      "contentType": "application/zip",
-                      "path": "C:\\Users\\bmarc\\Desktop\\airbnb\\test-results\\TC-102-Search-Properties-b-ec296-n-Date-and-Number-of-Guests-firefox\\trace.zip"
-                    }
-                  ]
+                  "startTime": "2025-05-23T00:32:16.084Z",
+                  "attachments": []
                 }
               ],
-              "status": "skipped"
+              "status": "expected"
             }
           ],
           "id": "340ba5841e2785c18ce6-9c83f96defe8638e84b6",
-          "file": "TC-102.spec.ts",
-          "line": 146,
-          "column": 5
-        },
-        {
-          "title": "Search Properties by Location, Date, and Number of Guests",
-          "ok": true,
-          "tags": [],
-          "tests": [
-            {
-              "timeout": 120000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "webkit",
-              "projectName": "webkit",
-              "results": [],
-              "status": "skipped"
-            }
-          ],
-          "id": "340ba5841e2785c18ce6-aed2d30ae176780b858e",
           "file": "TC-102.spec.ts",
           "line": 146,
           "column": 5
@@ -445,9 +332,9 @@
               "projectName": "chromium",
               "results": [
                 {
-                  "workerIndex": 0,
+                  "workerIndex": 1,
                   "status": "passed",
-                  "duration": 19175,
+                  "duration": 23462,
                   "errors": [],
                   "stdout": [
                     {
@@ -456,7 +343,7 @@
                   ],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2025-05-22T15:21:05.956Z",
+                  "startTime": "2025-05-23T00:30:29.274Z",
                   "attachments": []
                 }
               ],
@@ -479,31 +366,27 @@
               "expectedStatus": "passed",
               "projectId": "firefox",
               "projectName": "firefox",
-              "results": [],
-              "status": "skipped"
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "status": "passed",
+                  "duration": 48755,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "properties cards displayed in the first page: 18\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2025-05-23T00:32:54.750Z",
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
             }
           ],
           "id": "82e5f409458c6096b8a3-9577989de0af293a8354",
-          "file": "TC-103.spec.ts",
-          "line": 29,
-          "column": 5
-        },
-        {
-          "title": "Search Properties by Location",
-          "ok": true,
-          "tags": [],
-          "tests": [
-            {
-              "timeout": 120000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "webkit",
-              "projectName": "webkit",
-              "results": [],
-              "status": "skipped"
-            }
-          ],
-          "id": "82e5f409458c6096b8a3-b3d64983fa03d373f629",
           "file": "TC-103.spec.ts",
           "line": 29,
           "column": 5
@@ -531,7 +414,7 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 20400,
+                  "duration": 32242,
                   "errors": [],
                   "stdout": [
                     {
@@ -540,7 +423,7 @@
                   ],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2025-05-22T15:21:25.163Z",
+                  "startTime": "2025-05-23T00:30:49.518Z",
                   "attachments": []
                 }
               ],
@@ -563,31 +446,27 @@
               "expectedStatus": "passed",
               "projectId": "firefox",
               "projectName": "firefox",
-              "results": [],
-              "status": "skipped"
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "status": "passed",
+                  "duration": 43804,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "properties cards displayed in the first page: 18\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2025-05-23T00:33:17.953Z",
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
             }
           ],
           "id": "d250315885236e0fd76f-7272f4c823b751ad173b",
-          "file": "TC-104.spec.ts",
-          "line": 138,
-          "column": 5
-        },
-        {
-          "title": "Search Properties by Date",
-          "ok": true,
-          "tags": [],
-          "tests": [
-            {
-              "timeout": 120000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "webkit",
-              "projectName": "webkit",
-              "results": [],
-              "status": "skipped"
-            }
-          ],
-          "id": "d250315885236e0fd76f-cc0cdcdf67205ef60f04",
           "file": "TC-104.spec.ts",
           "line": 138,
           "column": 5
@@ -613,9 +492,9 @@
               "projectName": "chromium",
               "results": [
                 {
-                  "workerIndex": 0,
+                  "workerIndex": 1,
                   "status": "passed",
-                  "duration": 23010,
+                  "duration": 24012,
                   "errors": [],
                   "stdout": [
                     {
@@ -624,7 +503,7 @@
                   ],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2025-05-22T15:21:45.588Z",
+                  "startTime": "2025-05-23T00:30:52.767Z",
                   "attachments": []
                 }
               ],
@@ -647,31 +526,27 @@
               "expectedStatus": "passed",
               "projectId": "firefox",
               "projectName": "firefox",
-              "results": [],
-              "status": "skipped"
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "status": "passed",
+                  "duration": 50243,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "properties cards displayed in the first page: 18\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2025-05-23T00:33:43.542Z",
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
             }
           ],
           "id": "88fa64fd67a00439103a-46a89e3a5b99059106fb",
-          "file": "TC-105.spec.ts",
-          "line": 22,
-          "column": 5
-        },
-        {
-          "title": "Search Properties by Guests",
-          "ok": true,
-          "tags": [],
-          "tests": [
-            {
-              "timeout": 120000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "webkit",
-              "projectName": "webkit",
-              "results": [],
-              "status": "skipped"
-            }
-          ],
-          "id": "88fa64fd67a00439103a-6a3feceb9f46f7140906",
           "file": "TC-105.spec.ts",
           "line": 22,
           "column": 5
@@ -697,9 +572,9 @@
               "projectName": "chromium",
               "results": [
                 {
-                  "workerIndex": 0,
+                  "workerIndex": 1,
                   "status": "passed",
-                  "duration": 28347,
+                  "duration": 31407,
                   "errors": [],
                   "stdout": [
                     {
@@ -708,7 +583,7 @@
                   ],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2025-05-22T15:22:08.627Z",
+                  "startTime": "2025-05-23T00:31:16.807Z",
                   "attachments": []
                 }
               ],
@@ -731,31 +606,27 @@
               "expectedStatus": "passed",
               "projectId": "firefox",
               "projectName": "firefox",
-              "results": [],
-              "status": "skipped"
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "status": "passed",
+                  "duration": 74186,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "properties cards displayed in the first page: 18\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2025-05-23T00:34:01.797Z",
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
             }
           ],
           "id": "c3dd0c7863f807442fc3-37536129a1ff69217aa4",
-          "file": "TC-106.spec.ts",
-          "line": 26,
-          "column": 5
-        },
-        {
-          "title": "Search Properties by Location Selecting Suggested destinations",
-          "ok": true,
-          "tags": [],
-          "tests": [
-            {
-              "timeout": 120000,
-              "annotations": [],
-              "expectedStatus": "passed",
-              "projectId": "webkit",
-              "projectName": "webkit",
-              "results": [],
-              "status": "skipped"
-            }
-          ],
-          "id": "c3dd0c7863f807442fc3-7f4880ce165c1d4dbca0",
           "file": "TC-106.spec.ts",
           "line": 26,
           "column": 5
@@ -765,11 +636,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2025-05-22T15:19:35.621Z",
-    "duration": 470608.678,
-    "expected": 7,
-    "skipped": 12,
-    "unexpected": 2,
+    "startTime": "2025-05-23T00:29:45.943Z",
+    "duration": 332037.915,
+    "expected": 14,
+    "skipped": 0,
+    "unexpected": 0,
     "flaky": 0
   }
 }

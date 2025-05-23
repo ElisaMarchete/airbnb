@@ -22,13 +22,13 @@ export default defineConfig({
   // Retry
   retries: process.env.CI ? 0 : 0,
   // Run 3 tests in parallel
-  workers: 1,
+  workers: 2,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [["list"], ["html"], ["json", { outputFile: "test-results.json" }]],
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    headless: false, // Run tests in headed mode so you can SEE the browser
+    headless: true, // Run tests in headed mode so you can SEE the browser
     video: "off", //Record a video for each test
     screenshot: "only-on-failure", // (Optional) Take a screenshot if a test fails
     trace: "retain-on-failure",
