@@ -11,7 +11,7 @@
     "grepInvert": null,
     "maxFailures": 0,
     "metadata": {
-      "actualWorkers": 2
+      "actualWorkers": 1
     },
     "preserveOutput": "always",
     "reporter": [
@@ -69,7 +69,7 @@
     "updateSnapshots": "missing",
     "updateSourceMethod": "patch",
     "version": "1.50.1",
-    "workers": 2,
+    "workers": 1,
     "webServer": null
   },
   "suites": [
@@ -94,7 +94,7 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 30845,
+                  "duration": 28505,
                   "errors": [],
                   "stdout": [
                     {
@@ -103,7 +103,7 @@
                   ],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2025-05-23T00:29:47.061Z",
+                  "startTime": "2025-05-23T02:05:52.311Z",
                   "attachments": []
                 }
               ],
@@ -128,9 +128,9 @@
               "projectName": "firefox",
               "results": [
                 {
-                  "workerIndex": 2,
+                  "workerIndex": 1,
                   "status": "passed",
-                  "duration": 48152,
+                  "duration": 37752,
                   "errors": [],
                   "stdout": [
                     {
@@ -139,7 +139,7 @@
                   ],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2025-05-23T00:31:25.907Z",
+                  "startTime": "2025-05-23T02:08:51.414Z",
                   "attachments": []
                 }
               ],
@@ -172,9 +172,9 @@
               "projectName": "chromium",
               "results": [
                 {
-                  "workerIndex": 1,
+                  "workerIndex": 0,
                   "status": "passed",
-                  "duration": 41667,
+                  "duration": 29077,
                   "errors": [],
                   "stdout": [
                     {
@@ -183,7 +183,7 @@
                   ],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2025-05-23T00:29:47.065Z",
+                  "startTime": "2025-05-23T02:06:21.073Z",
                   "attachments": []
                 }
               ],
@@ -208,9 +208,9 @@
               "projectName": "firefox",
               "results": [
                 {
-                  "workerIndex": 3,
+                  "workerIndex": 1,
                   "status": "passed",
-                  "duration": 61166,
+                  "duration": 51054,
                   "errors": [],
                   "stdout": [
                     {
@@ -219,7 +219,7 @@
                   ],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2025-05-23T00:31:51.979Z",
+                  "startTime": "2025-05-23T02:09:30.298Z",
                   "attachments": []
                 }
               ],
@@ -254,7 +254,7 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 31038,
+                  "duration": 25757,
                   "errors": [],
                   "stdout": [
                     {
@@ -263,7 +263,7 @@
                   ],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2025-05-23T00:30:18.453Z",
+                  "startTime": "2025-05-23T02:06:50.177Z",
                   "attachments": []
                 }
               ],
@@ -288,18 +288,18 @@
               "projectName": "firefox",
               "results": [
                 {
-                  "workerIndex": 2,
+                  "workerIndex": 1,
                   "status": "passed",
-                  "duration": 61792,
+                  "duration": 34798,
                   "errors": [],
                   "stdout": [
                     {
-                      "text": "properties cards displayed in the first page: 18\n"
+                      "text": "properties cards displayed in the first page: 24\n"
                     }
                   ],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2025-05-23T00:32:16.084Z",
+                  "startTime": "2025-05-23T02:10:21.403Z",
                   "attachments": []
                 }
               ],
@@ -332,9 +332,9 @@
               "projectName": "chromium",
               "results": [
                 {
-                  "workerIndex": 1,
+                  "workerIndex": 0,
                   "status": "passed",
-                  "duration": 23462,
+                  "duration": 17949,
                   "errors": [],
                   "stdout": [
                     {
@@ -343,7 +343,7 @@
                   ],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2025-05-23T00:30:29.274Z",
+                  "startTime": "2025-05-23T02:07:15.956Z",
                   "attachments": []
                 }
               ],
@@ -368,18 +368,18 @@
               "projectName": "firefox",
               "results": [
                 {
-                  "workerIndex": 3,
+                  "workerIndex": 1,
                   "status": "passed",
-                  "duration": 48755,
+                  "duration": 30426,
                   "errors": [],
                   "stdout": [
                     {
-                      "text": "properties cards displayed in the first page: 18\n"
+                      "text": "properties cards displayed in the first page: 1\n"
                     }
                   ],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2025-05-23T00:32:54.750Z",
+                  "startTime": "2025-05-23T02:10:56.240Z",
                   "attachments": []
                 }
               ],
@@ -414,7 +414,7 @@
                 {
                   "workerIndex": 0,
                   "status": "passed",
-                  "duration": 32242,
+                  "duration": 23999,
                   "errors": [],
                   "stdout": [
                     {
@@ -423,7 +423,7 @@
                   ],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2025-05-23T00:30:49.518Z",
+                  "startTime": "2025-05-23T02:07:33.934Z",
                   "attachments": []
                 }
               ],
@@ -448,9 +448,9 @@
               "projectName": "firefox",
               "results": [
                 {
-                  "workerIndex": 2,
+                  "workerIndex": 1,
                   "status": "passed",
-                  "duration": 43804,
+                  "duration": 39472,
                   "errors": [],
                   "stdout": [
                     {
@@ -459,7 +459,7 @@
                   ],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2025-05-23T00:33:17.953Z",
+                  "startTime": "2025-05-23T02:11:26.711Z",
                   "attachments": []
                 }
               ],
@@ -492,9 +492,9 @@
               "projectName": "chromium",
               "results": [
                 {
-                  "workerIndex": 1,
+                  "workerIndex": 0,
                   "status": "passed",
-                  "duration": 24012,
+                  "duration": 21561,
                   "errors": [],
                   "stdout": [
                     {
@@ -503,7 +503,7 @@
                   ],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2025-05-23T00:30:52.767Z",
+                  "startTime": "2025-05-23T02:07:57.981Z",
                   "attachments": []
                 }
               ],
@@ -528,18 +528,18 @@
               "projectName": "firefox",
               "results": [
                 {
-                  "workerIndex": 3,
+                  "workerIndex": 1,
                   "status": "passed",
-                  "duration": 50243,
+                  "duration": 58797,
                   "errors": [],
                   "stdout": [
                     {
-                      "text": "properties cards displayed in the first page: 18\n"
+                      "text": "properties cards displayed in the first page: 1\n"
                     }
                   ],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2025-05-23T00:33:43.542Z",
+                  "startTime": "2025-05-23T02:12:06.218Z",
                   "attachments": []
                 }
               ],
@@ -572,9 +572,9 @@
               "projectName": "chromium",
               "results": [
                 {
-                  "workerIndex": 1,
+                  "workerIndex": 0,
                   "status": "passed",
-                  "duration": 31407,
+                  "duration": 28269,
                   "errors": [],
                   "stdout": [
                     {
@@ -583,7 +583,7 @@
                   ],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2025-05-23T00:31:16.807Z",
+                  "startTime": "2025-05-23T02:08:19.561Z",
                   "attachments": []
                 }
               ],
@@ -592,7 +592,7 @@
           ],
           "id": "c3dd0c7863f807442fc3-b0b680a7eb09e25e1593",
           "file": "TC-106.spec.ts",
-          "line": 26,
+          "line": 25,
           "column": 5
         },
         {
@@ -608,18 +608,18 @@
               "projectName": "firefox",
               "results": [
                 {
-                  "workerIndex": 2,
+                  "workerIndex": 1,
                   "status": "passed",
-                  "duration": 74186,
+                  "duration": 53603,
                   "errors": [],
                   "stdout": [
                     {
-                      "text": "properties cards displayed in the first page: 18\n"
+                      "text": "properties cards displayed in the first page: 1\n"
                     }
                   ],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2025-05-23T00:34:01.797Z",
+                  "startTime": "2025-05-23T02:13:05.052Z",
                   "attachments": []
                 }
               ],
@@ -628,7 +628,7 @@
           ],
           "id": "c3dd0c7863f807442fc3-37536129a1ff69217aa4",
           "file": "TC-106.spec.ts",
-          "line": 26,
+          "line": 25,
           "column": 5
         }
       ]
@@ -636,8 +636,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2025-05-23T00:29:45.943Z",
-    "duration": 332037.915,
+    "startTime": "2025-05-23T02:05:51.455Z",
+    "duration": 491248.958,
     "expected": 14,
     "skipped": 0,
     "unexpected": 0,

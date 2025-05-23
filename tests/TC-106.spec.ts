@@ -4,7 +4,6 @@ import { test, expect } from "@playwright/test";
 
 let cityNameProvince = "Toronto, ON";
 let cityName = cityNameProvince.split(",")[0].trim(); // Extract the city name from the full name
-console.log(`City Name: ${cityName}`);
 
 // Function to automatically accept cookies if the button is visible
 async function autoAcceptCookies(page) {

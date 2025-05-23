@@ -22,7 +22,7 @@ export default defineConfig({
   // Retry
   retries: process.env.CI ? 0 : 0,
   // Run 3 tests in parallel
-  workers: 2,
+  workers: 1,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [["list"], ["html"], ["json", { outputFile: "test-results.json" }]],
 

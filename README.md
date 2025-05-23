@@ -10,13 +10,13 @@ This repository showcases my **QA software testing skills** through **manual and
 
 ### 1️⃣ Manual Testing on BrowserStack
 
-🔹 **Test Run** – [Click to View Test Run](https://test-management.browserstack.com/projects/1510499/test-runs/TR-17?public_token=46dff9857a2a955d07d36534835abc8c1da7ceaf647dae9a97fd2d24152bace1d846da46f62c5ada0d9c3fb8d9f91ed8f04110a9849ddc73d00319246d4f0099&public_token_id=3144)
+🔹 **Test Run** – **👉 [Click to View Test Run](https://test-management.browserstack.com/projects/1510499/test-runs/TR-17?public_token=46dff9857a2a955d07d36534835abc8c1da7ceaf647dae9a97fd2d24152bace1d846da46f62c5ada0d9c3fb8d9f91ed8f04110a9849ddc73d00319246d4f0099&public_token_id=3144)**
 
 ![Test Run](./img/TestRunReport.PNG)
 
 ### 2️⃣ Bug Reports
 
-📌 **Bug logged for failed test (TC-110)** – [Click to View GitHub Issue](https://github.com/ElisaMarchete/airbnb/issues/1)
+📌 **Bug logged for failed test (TC-110)** – **👉 [Click to View GitHub Issue](https://github.com/ElisaMarchete/airbnb/issues/1)**
 
 ![Bug Report](./img/Bug.PNG)
 
@@ -25,6 +25,21 @@ This repository showcases my **QA software testing skills** through **manual and
 💻 Playwright test scripts for automated functional and visual validation to ensure the application's search functionality works correctly and looks as expected.
 
 ![Playwright](./img/Playwright.PNG)
+
+## 🎥 Portfolio Playwright Demo
+
+## Test Status (as of May 2025)
+
+The tests are passing in May 2025. Refer to the videos below for a visual reference.
+
+> **Note:** Test results may vary if Airbnb’s interface has been updated since this recording.
+
+🎬 **Airbnb Search | Playwright Automation Test Execution (TC-100, TC-101, TC-106, Headed Mode) – May 2025**  
+**👉 [Click to View Demo](https://www.loom.com/share/b35e76e236e94ddea759d78490a86d3c?sid=1be6f47f-873f-4d9b-bd77-af5680e3d2bf)**
+
+🎬 **Airbnb Search | Playwright Automation Test Execution (All Tests, Headless Mode) – May 2025**  
+**👉 [Click to View Demo](https://www.loom.com/share/2b272fca72974e9a80e29a32d3eeed34?sid=aee39523-a4b1-4aa6-901a-ae1383cf0608)**  
+
 
 ## 🚀 Running Playwright Tests
 
