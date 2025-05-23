@@ -50,7 +50,7 @@ Ensure you have **Node.js (LTS version)** installed. You can download it from [n
 1️⃣ **Clone this repository and navigate to test folder:**
 
 ```bash
-git clone <https://github.com/ElisaMarchete/airbnb.git>
+git clone https://github.com/ElisaMarchete/airbnb.git
 ```
 
 ```bash
